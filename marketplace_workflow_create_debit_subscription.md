@@ -96,7 +96,7 @@ Cache-Control: no-cache
 
 # Save the debit payment instrument
 
-For each bank account of the customer, you need to save the data in a payment container. From the response you need to save the container->id (f.e. ).
+For each bank account of the customer, you need to save the data in a payment container. From the response you need to save the container->id (f.e. PCT_26VH44YJM2MG4Y6WX75XUVH65QYVAB).
 
 ## Request
 
@@ -155,5 +155,71 @@ If the bank account already exists for the customer you will get the following e
     "error_user": "Es ist ein unbekannter Fehler aufgetreten",
     "code": 0,
     "supportId": "9c9a230e5b3f1408e92c520cd2a5636c"
+}
+```
+
+# Create the first payment transaction
+
+After you have saved the customer data and the bank account, you can start with the creation of the first payment. This payment can be reused (as subscription) for further (f.e monthly) payment transactions.
+
+## Request
+
+```
+{
+    "container": "PCT_26VH44YJM2MG4Y6WX75XUVH65QYVAB",
+    "customer": "PCU_3577GD8KT2MG4Y5UX75XUVH65QYVAA",
+    "contract": "PCR_W30TEBYFV2MG4K03875XUNP35QYVAB",
+    "amount": "9490",
+    "currency": "EUR",
+    "purpose": "for what text",
+    "order_id": "2017418454",
+    "subscription": {
+    	"purpose": "for what text"
+    },
+    "basket": [
+    	{
+    		"item_type": "article",
+    		"name": "Super fancy product - 45,00 EUR",
+    		"price": "4500",
+    		"quantity": "2",
+    		"tax": 19,
+    		"total": "9000"
+    	},
+    	{
+    		"item_type": "shipping",
+    		"name": "DHL Paket National - 4,90 EUR",
+    		"price": "490",
+    		"quantity": "1",
+    		"tax": 19,
+    		"total": "490"
+    	},
+    	{
+    		"item_type": "stakeholder_payment",
+    		"name": "platform fee",
+    		"price": "475",
+    		"quantity": "1",
+    		"contract_id": "PCR_KR40B0A0T2MF75EN875XUBW87M8UA6",
+    		"total": "490"
+    	}
+	]
+}
+```
+
+## Response
+
+```
+TODO
+```
+
+## Error
+
+```
+{
+    "status": "error",
+    "error": "ProductNotAllowedException",
+    "error_details": "Referenced contract access denied PCR_W30TEBYFV2MG4K03875XUNP35QYVAB",
+    "error_user": "Es ist ein unbekannter Fehler aufgetreten",
+    "code": 0,
+    "supportId": "6113d143e8f640daec79f3cfb48ebaf0"
 }
 ```
