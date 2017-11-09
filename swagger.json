@@ -1,0 +1,419 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "SecuConnect API",
+        "version": "2.0"
+    },
+    "basePath": "/api/v2/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "Loyalty/Beacons": {
+            "get": {
+                "tags": [
+                    "loyalty"
+                ],
+                "description": "Get all beacons",
+                "responses": {
+                    "200": {
+                        "description": "Returns list of all beacons",
+                        "schema": {
+                            "properties": {
+                                "count": {
+                                    "description": "Count of returned beacons",
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/LoyaltyBeaconsProductModel"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "loyalty"
+                ],
+                "description": "Add new beacon",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Beacon properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/BeaconDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Newly created beacon",
+                        "schema": {
+                            "$ref": "#/definitions/LoyaltyBeaconsProductModel"
+                        }
+                    }
+                }
+            }
+        },
+        "Loyalty/Beacons/{id}": {
+            "put": {
+                "tags": [
+                    "loyalty"
+                ],
+                "description": "Update beacon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Beacon id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Beacon properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/BeaconDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated beacon",
+                        "schema": {
+                            "$ref": "#/definitions/LoyaltyBeaconsProductModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "loyalty"
+                ],
+                "description": "Delete beacon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Beacon id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted beacon object",
+                        "schema": {
+                            "$ref": "#/definitions/LoyaltyBeaconsProductModel"
+                        }
+                    }
+                }
+            }
+        },
+        "Payment/Containers": {
+            "get": {
+                "tags": [
+                    "payment"
+                ],
+                "description": "Get all payment containers",
+                "responses": {
+                    "200": {
+                        "description": "Returns list with all payment containers",
+                        "schema": {
+                            "properties": {
+                                "count": {
+                                    "description": "Count of returned payment containers",
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#definitions/PaymentContainersProductModel"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "payment"
+                ],
+                "description": "Add new containers",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payment container properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Newly created payment container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    }
+                }
+            }
+        },
+        "Payment/Containers/{id}": {
+            "put": {
+                "tags": [
+                    "payment"
+                ],
+                "description": "Update payment container",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment container id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payment container properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated payment container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "payment"
+                ],
+                "description": "Delete payment container",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment container id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted payment container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "BeaconDTO": {
+            "properties": {
+                "uuid": {
+                    "description": "WTF?",
+                    "type": "string"
+                },
+                "major": {
+                    "description": "WTF?",
+                    "type": "integer"
+                },
+                "minor": {
+                    "description": "WTF?",
+                    "type": "integer"
+                },
+                "description": {
+                    "description": "WTF?",
+                    "type": "string"
+                },
+                "merchant": {
+                    "description": "WTF?",
+                    "type": "string"
+                },
+                "store": {
+                    "description": "WTF?",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "LoyaltyBeaconsProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Object of loyalty beacon",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of loyalty beacon",
+                    "type": "string",
+                    "format": "id"
+                },
+                "created": {
+                    "description": "Creation date of loyalty beacon",
+                    "type": "string",
+                    "format": "date"
+                },
+                "updated": {
+                    "description": "Last update date of loyalty beacon",
+                    "type": "string",
+                    "format": "date"
+                },
+                "uuid": {
+                    "description": "UUID of loyalty beacon",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "major": {
+                    "description": "WTF?",
+                    "type": "integer"
+                },
+                "minor": {
+                    "description": "WTF?",
+                    "type": "integer"
+                },
+                "description": {
+                    "description": "Description of loyalty beacon",
+                    "type": "string"
+                },
+                "merchant": {
+                    "description": "Merchant of loyalty beacon",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "store": {
+                    "description": "Store of loyalty beacon",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentContainersDTO": {
+            "properties": {
+                "type": {
+                    "description": "Type of Payment Containers",
+                    "type": "string"
+                },
+                "private": {
+                    "description": "",
+                    "properties": {
+                        "owner": {
+                            "type": "string"
+                        },
+                        "iban": {
+                            "type": "string"
+                        },
+                        "bic": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentContainersProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Object of payment container",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of payment container",
+                    "type": "string",
+                    "format": "id"
+                },
+                "contract": {
+                    "description": "Payment container contract",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "customer": {
+                    "description": "Payment container customer",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "assign": {
+                    "description": "Assign",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "type": {
+                    "description": "Type of payment container",
+                    "type": "string"
+                },
+                "public": {
+                    "description": "Public bank account data",
+                    "$ref": "#/definitions/BankAccountDescriptor"
+                },
+                "private": {
+                    "description": "Private bank account data",
+                    "$ref": "#/definitions/BankAccountDescriptor"
+                },
+                "created": {
+                    "description": "Creation date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "updated": {
+                    "description": "Last update date",
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "type": "object"
+        },
+        "ProductInstanceUID": {
+            "description": "Product name and instance id, uniquely identifying instance of Product",
+            "properties": {
+                "object": {
+                    "description": "Product name",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID of instance",
+                    "type": "string"
+                }
+            }
+        },
+        "BankAccountDescriptor": {
+            "description": "Bank account data like owner, iban, bic and bank name",
+            "properties": {
+                "owner": {
+                    "description": "Owner",
+                    "type": "string"
+                },
+                "iban": {
+                    "description": "IBAN",
+                    "type": "string"
+                },
+                "bic": {
+                    "description": "BIC",
+                    "type": "string"
+                },
+                "bankname": {
+                    "description": "Bank name",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
