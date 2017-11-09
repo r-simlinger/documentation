@@ -57,10 +57,12 @@ Cache-Control: no-cache
          "city":"Examplecity",
          "country":"DE"
       },
-      "email":{
-         "type":"invoice",
-         "email":"example@example.com"
-      },
+      "email":[
+         {
+            "type":"invoice",
+            "email":"example@example.com"
+         }
+      ],
       "phone":[
          {
             "type":"invoice",
