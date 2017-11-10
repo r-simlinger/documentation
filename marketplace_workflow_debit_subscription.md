@@ -26,9 +26,12 @@ grant_type=client_credentials&client_id=09ae83af7c37121b2de929b211bad944&client_
 
 # Create Project/Merchant
 
-With a valid token you can start to create a new project (merchant). From the response you need to store the contract->id (f.e. PCR_20NP4X8NK2MG5BAD875XUKDW5QYVAB).
+With a valid token you can start to create a new project (merchant).
+
+From the response you need to save the field "contract->id" (f.e. PCR_20NP4X8NK2MG5BAD875XUKDW5QYVAB).
 
 ## Request
+
 ```
 POST /api/v2/Payment/Contracts/me/RequestId HTTP/1.1
 Host: connect-testing.secupay-ag.de
@@ -109,7 +112,9 @@ Cache-Control: no-cache
 
 # Save the customer (payer) data
 
-After you got a vlid token you can start with saving the customer data. From the response you need to save the customer->id (f.e. PCU_3RGVMQ5GR2MG4KUZ875XUNP5YQYVAA).
+To create payment transactions you need to transmit the customer (payer) of the customer first.
+
+From the response you need to save the field "id" (f.e. PCU_3RGVMQ5GR2MG4KUZ875XUNP5YQYVAA).
 
 ## Request
 
@@ -179,7 +184,9 @@ Cache-Control: no-cache
 
 # Save the debit payment instrument
 
-For each bank account of the customer, you need to save the data in a payment container. From the response you need to save the container->id (f.e. PCT_26VH44YJM2MG4Y6WX75XUVH65QYVAB).
+For each payment instrument (bank account) of the customer, you need to save the data in a payment container.
+
+From the response you need to save the field "id" (f.e. PCT_26VH44YJM2MG4Y6WX75XUVH65QYVAB).
 
 ## Request
 
@@ -228,7 +235,7 @@ For each bank account of the customer, you need to save the data in a payment co
 
 ## Error
 
-If the bank account already exists for the customer you will get the following error as response:
+If the bank account already exists for the customer you will get the following error:
 
 ```
 {
@@ -243,7 +250,19 @@ If the bank account already exists for the customer you will get the following e
 
 # Create the first payment transaction
 
-After you have saved the customer data and the bank account, you can start with the creation of the first payment. This payment can be reused (as subscription) for further (f.e monthly) payment transactions.
+After you have transmitted the customer data and the bank account, you can start with the creation of the first payment.
+
+The following example descrripte the way to create a subscription. So this payment can be reused for further (f.e monthly) payment transactions, after the first payment transaction completed successfully.
+
+To define for which project (merchant) the payment should be performed, you need to transmit the field "contract" (with the id from the examples above).
+
+To create a subscription you need to transmit the field "subscription->purpose". In the response you will receive the field "subscription->id". With this id you can then start new payment transactions without enter the complete payment details again.
+
+In the field "basket" you should transmit the items which the customer wants to pay for.
+
+And if you want to define some plattform fee (so the project will not get the full amount) you need to add a basket position with the "item_type" = "stakeholder_payment" and the contract id of the plattform (in general this is the parent id of the created project - see the example above).
+
+In the response there is also a field "redirect_url->iframe_url" (f.e. https://api-testing.secupay-ag.de/payment/qbhjffjfalar2408801 ). To this url you need to redirect the customer, so that he can complete the payment process.
 
 ## Request
 
