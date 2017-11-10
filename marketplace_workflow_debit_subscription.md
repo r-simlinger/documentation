@@ -112,7 +112,7 @@ Cache-Control: no-cache
 
 # Save the customer (payer) data
 
-To create payment transactions you need to transmit the customer (payer) of the customer first. It is also possible to skip this step and to transmit the hole data on creating the payment transaction. But we recommend to do this separately.
+To create payment transactions you need to transmit the data of the customer (payer) first. It is also possible to skip this step and to transmit the whole data on creating the payment transaction. But we recommend to do this separately.
 
 From the response you need to save the field "id" (f.e. PCU_3RGVMQ5GR2MG4KUZ875XUNP5YQYVAA).
 
@@ -186,15 +186,15 @@ Cache-Control: no-cache
 
 After you have transmitted the customer data you can start with the creation of the first payment.
 
-The following example descripe the way to create subscription payments. So this payment transaction can be reused for further (f.e monthly) transactions, after the first transaction was completed successfully.
+The following example describe the way to create subscription payments. So this payment transaction can be reused for further (f.e monthly) transactions, after the first transaction was completed successfully.
 
 To create a subscription you need to transmit the field "subscription->purpose". In the response you will receive the field "subscription->id". With this id you can then start new payment transactions without enter the complete payment details again.
 
-To define for which project (merchant) the payment should be performed, you need to transmit the field "contract" (with the id from the examples above). Without this field the money will be go to the contract/bank account of the plattform!
+To define for which project (merchant) the payment should be performed, you need to transmit the field "contract" (with the id from the examples above). Without this field the money will be go to the contract/bank account of the platform!
 
 In the field "basket" you should transmit the items which the customer wants to pay for. (This items will be displayed to the customer on the checkout page.)
 
-And if you want to define some plattform fee (so the project will not get the full amount) you need to add a basket position with the "item_type" = "stakeholder_payment" and the contract id of the plattform (in general this is the parent id of the created project - see the example above).
+And if you want to define some platform fee (so the project will not get the full amount) you need to add a basket position with the "item_type" = "stakeholder_payment" and the contract id of the platform (in general this is the parent id of the created project - see the example above).
 
 In the response there is also a field "redirect_url->iframe_url" (f.e. https://api-testing.secupay-ag.de/payment/fmhxaxkhsnid2408803 ). To this url you need to redirect the customer, so that he can complete the payment process and enter his payment instrument.
 
@@ -332,7 +332,7 @@ Cache-Control: no-cache
 
 # Get status of the payment
 
-The check if the payment was succesfull (status = "accepted") you can simply run the following request. Then you cann also see the used payment instrument in the field "used_payment_instrument".
+The check if the payment was successful (status = "accepted") you can simply run the following request. Then you can also see the used payment instrument in the field "used_payment_instrument".
 
 ## Request
 
@@ -426,7 +426,7 @@ Cache-Control: no-cache
 
 # Reuse payment transaction
 
-After you have a successful payment transation (status = "accepted") you can reuse this payment by sending the subscription id.
+After you have a successful payment transaction (status = "accepted") you can reuse this payment by sending the subscription id.
 
 You can also change the amount of the new payment. If you do not transmit an amount the amount of the first payment will be used.
 
