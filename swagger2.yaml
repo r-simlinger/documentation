@@ -1,0 +1,3713 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: secucore.api
+  description: 'TODO: Add Description'
+  license:
+    name: MIT
+    url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT'
+host: example.com
+basePath: /
+securityDefinitions:
+  auth:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: 'http://example.com'
+    scopes: {}
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /oauth/token:
+    post:
+      description: ''
+      summary: oAuth token appuser
+      tags:
+        - Auth (oauth)
+      operationId: oAuth token appuser
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: grant_type
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: client_id
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: client_secret
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: username
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: password
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: device
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: 'deviceinfo[name]'
+          in: formData
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /oauth/token
+            headers:
+              Content-Type: application/x-www-form-urlencoded
+            body: 'grant_type=appuser&client_id=app.main.secucard&client_secret=not set&username=r.simlinger@secupay.ag&password=TestPassword01xxx&device=XYZ&deviceinfo[name]=value'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: oAuth token appuser
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Customers/PCU_DZA92XXXZ2M49MRW875XUHXR9A8DAA:
+    get:
+      description: ''
+      summary: Payment/Customers/pcu_xxxxx
+      tags:
+        - Payment.Customers
+      operationId: Payment/Customers/pcu_xxxxx1
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Customers/PCU_DZA92XXXZ2M49MRW875XUHXR9A8DAA
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Customers/pcu_xxxxx1
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: ''
+      summary: Payment/Customers/pcu_xxxxx
+      tags:
+        - Payment.Customers
+      operationId: Payment/Customers/pcu_xxxxx
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1customers~1pcuXxxxxrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: PUT
+            uri: /Payment/Customers/PCU_DZA92XXXZ2M49MRW875XUHXR9A8DAA
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contact": {
+                      "salutation": "Mr.",
+                      "title": "Dr.",
+                      "forename": "John",
+                      "surname": "Doe",
+                      "companyname": "Example Inc.",
+                      "dob": "1901-02-03",
+                      "email": "example@example.com",
+                      "phone": "0049-123-456789",
+                      "mobile": "0049-987-654321",
+                      "address": {
+                          "street": "Example Street",
+                          "street_number": "6a",
+                          "postal_code": "01234",
+                          "city": "Examplecity",
+                          "country": "Germany"
+                      }
+                  }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Customers/pcu_xxxxx
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      description: ''
+      summary: Payment/Customers/pcu_xxxxx
+      tags:
+        - Payment.Customers
+      operationId: Payment/Customers/pcu_xxxxx2
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /Payment/Customers/PCU_DZA92XXXZ2M49MRW875XUHXR9A8DAA
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Customers/pcu_xxxxx2
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupaydebits:
+    post:
+      description: Create a new debit transaction
+      summary: Payment/Secupaydebits
+      tags:
+        - Payment.Secupaydebits
+      operationId: Payment/Secupaydebits
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupaydebitsrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupaydebits
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "subscription": {
+                    "id": "932"
+                  },
+                  "amount": "100",
+                  "purpose": "for what text",
+                  "contact": {"email": "test@example.com"},
+                  "basket": [
+                      {
+                          "item_type": "article",
+                          "name": "Super fancy product - 45,00 EUR",
+                          "price": 4500,
+                          "quantity": 1,
+                          "tax": 19,
+                          "total": 4500
+                      },
+                      {
+                          "item_type": "shipping",
+                          "name": "DHL Paket National - 4,90 EUR",
+                          "price": 490,
+                          "quantity": 1,
+                          "tax": 19,
+                          "total": 490
+                      },
+                      {
+                          "apikey": "37373c132df0299c5bdcf7c7638dd47aa41a2fe2",
+                          "item_type": "stakeholder_payment",
+                          "name": "platform fee",
+                          "price": 249,
+                          "quantity": 1,
+                          "total": 249
+                      }]
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupaydebits
+          x-testDescription: Create a new debit transaction
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Containers/pct_xxxxx:
+    put:
+      description: ''
+      summary: Payment/Containers/pct_xxxxx
+      tags:
+        - Payment.Containers
+      operationId: Payment/Containers/pct_xxxxx1
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1containers~1pctXxxxxrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: PUT
+            uri: /Payment/Containers/pct_xxxxx
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "type": "bank_account",
+                  "private": {
+                      "owner": "John Doe",
+                      "iban": "DE12123456781234567890",
+                      "bic": "ABCDDE12XXX"
+                  }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Containers/pct_xxxxx1
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      description: ''
+      summary: Payment/Containers/pct_xxxxx
+      tags:
+        - Payment.Containers
+      operationId: Payment/Containers/pct_xxxxx
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /Payment/Containers/pct_xxxxx
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Containers/pct_xxxxx
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Customers:
+    get:
+      description: ''
+      summary: Payment/Customers
+      tags:
+        - Payment.Customers
+      operationId: Payment/Customers
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Customers
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Customers
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      description: ''
+      summary: Payment/Customers
+      tags:
+        - Payment.Customers
+      operationId: Payment/Customers1
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1customersrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Customers
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contact": {
+                      "salutation": "Mr.",
+                      "title": "Dr.",
+                      "forename": "John",
+                      "surname": "Doe",
+                      "companyname": "Example Inc.",
+                      "dob": "1901-02-03",
+                      "email": "example@example.com",
+                      "phone": "0049-123-456789",
+                      "mobile": "0049-987-654321",
+                      "address": {
+                          "street": "Example Street",
+                          "street_number": "6a",
+                          "postal_code": "01234",
+                          "city": "Examplecity",
+                          "country": "Germany"
+                      }
+                  }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Customers1
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Containers/pct_xxxxx/assign/pcu_xxxxx:
+    post:
+      description: ''
+      summary: 'Payment/Containers/pct_xxxxx assign '
+      tags:
+        - Payment.Containers
+      operationId: 'Payment/Containers/pct_xxxxx assign '
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Containers/pct_xxxxx/assign/pcu_xxxxx
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: 'Payment/Containers/pct_xxxxx assign '
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupaycreditcards/xxx:
+    get:
+      description: ''
+      summary: Payment/Secupaycreditcards/xxx
+      tags:
+        - Payment.Secupaycreditcards
+      operationId: Payment/Secupaycreditcards/xxx
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Secupaycreditcards/xxx
+            headers:
+              Content-Type: application/json
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupaycreditcards/xxx
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Transactions:
+    get:
+      description: ''
+      summary: Payment/Transactions
+      tags:
+        - Payment.Transactions
+      operationId: Payment/Transactions
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Transactions
+            headers:
+              Content-Type: application/json
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Transactions
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupayinvoices/xxx:
+    get:
+      description: ''
+      summary: Payment/Secupayinvoices/xxx
+      tags:
+        - Payment.Secupayinvoices
+      operationId: Payment/Secupayinvoices/xxx
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Secupayinvoices/xxx
+            headers:
+              Content-Type: application/json
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupayinvoices/xxx
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupayprepays/xxxxx/cancel:
+    post:
+      description: ''
+      summary: Payment/Secupayprepays/hash_id/cancel
+      tags:
+        - Payment.Secupayprepays
+      operationId: Payment/Secupayprepays/hash_id/cancel
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupayprepays~1hashId~1cancelrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupayprepays/xxxxx/cancel
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contract": "contract_id if transaction is for subcontract, empty if not!"
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupayprepays/hash_id/cancel
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupayinvoices/xxxxc/cancel:
+    post:
+      description: ''
+      summary: Payment/Secupayinvoices/hash_id/cancel
+      tags:
+        - Payment.Secupayinvoices
+      operationId: Payment/Secupayinvoices/hash_id/cancel
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupayinvoices~1hashId~1cancelrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupayinvoices/xxxxc/cancel
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contract": "contract_id if transaction is for subcontract, empty if not!"
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupayinvoices/hash_id/cancel
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupayprepays/xxx:
+    get:
+      description: ''
+      summary: Payment/Secupayprepays/xxx
+      tags:
+        - Payment.Secupayprepays
+      operationId: Payment/Secupayprepays/xxx
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Secupayprepays/xxx
+            headers:
+              Content-Type: application/json
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupayprepays/xxx
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Contracts/me/clone:
+    post:
+      description: ''
+      summary: Payment/Contracts clone
+      tags:
+        - Payment.Contracts
+      operationId: Payment/Contracts clone
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1contractsClonerequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1contractsCloneresponse'
+          examples:
+            application/json:
+              apikey: 7c0558743748e2872a30b8a839d15d7434d3fdf7
+              contract_id: PCR_27CQJ0AS22M7TT8BX75XUP50TY0UA2
+              payin_account:
+                accountowner: 'null'
+                iban: 'null'
+                bic: 'null'
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Contracts/me/clone
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contact": {
+                    "id": "CNT_2PJXRWYRK2YATU9MB5GQGJPRR3Q3AJ"
+                  },
+                  "project": "project_name 2017-05-15 #2",
+                  "payout_account": {
+                      "iban" : "DE89370400440532013000",
+                      "bic" : "",
+                      "owner": "Test #1"
+                  },
+                  "iframe_opts": {
+                    "show_basket": true,
+                    "basket_title": "Projext XY unterstützen",
+                    "submit_button_title": "Zahlungspflichtig unterstützen"
+                  },
+                  "payin_account": false
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: RAW
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers:
+              Accept: application/json
+              Access-Control-Allow-Headers: 'Content-Type, Accept, Authorization'
+              Access-Control-Allow-Methods: 'POST, GET, PUT, DELETE, OPTIONS'
+              Access-Control-Allow-Origin: '*'
+              Access-Control-Max-Age: '600'
+              Cache-Control: 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'
+              Connection: Keep-Alive
+              Content-Length: '165'
+              Content-Type: application/json
+              Date: 'Mon, 24 Apr 2017 12:05:42 GMT'
+              Expires: 'Thu, 19 Nov 1981 08:52:00 GMT'
+              Keep-Alive: timeout=15
+              Pragma: no-cache
+              Server: Apache/2.2.22 (Debian)
+            body: '{"apikey":"7c0558743748e2872a30b8a839d15d7434d3fdf7","contract_id":"PCR_27CQJ0AS22M7TT8BX75XUP50TY0UA2","payin_account":{"accountowner":"null","iban":"null","bic":"null"}}'
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Contracts clone
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Contracts/pcr_xxxxx:
+    delete:
+      description: ''
+      summary: Payment/Contracts/pcr_xxxxx
+      tags:
+        - Payment.Contracts
+      operationId: Payment/Contracts/pcr_xxxxx
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /Payment/Contracts/pcr_xxxxx
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Contracts/pcr_xxxxx
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupaydebits/xxxxc/cancel:
+    post:
+      description: ''
+      summary: Payment/Secupaydebits/hash_id/cancel
+      tags:
+        - Payment.Secupaydebits
+      operationId: Payment/Secupaydebits/hash_id/cancel
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupaydebits~1hashId~1cancelrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupaydebits/xxxxc/cancel
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contract": "contract_id if transaction is for subcontract, empty if not!"
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupaydebits/hash_id/cancel
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupaydebits/xxx:
+    get:
+      description: ''
+      summary: Payment/Secupaydebits/xxx
+      tags:
+        - Payment.Secupaydebits
+      operationId: Payment/Secupaydebits/xxx
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Secupaydebits/xxx
+            headers:
+              Content-Type: application/json
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupaydebits/xxx
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Containers/pct_xxxxx/assign:
+    delete:
+      description: ''
+      summary: Payment/Containers/pct_xxxxx assign
+      tags:
+        - Payment.Containers
+      operationId: Payment/Containers/pct_xxxxx assign
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /Payment/Containers/pct_xxxxx/assign
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Containers/pct_xxxxx assign
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Containers:
+    get:
+      description: ''
+      summary: Payment/Containers
+      tags:
+        - Payment.Containers
+      operationId: Payment/Containers1
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Containers
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Containers1
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      description: ''
+      summary: Payment/Containers
+      tags:
+        - Payment.Containers
+      operationId: Payment/Containers
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1containersrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Containers
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "type": "bank_account",
+                  "private": {
+                      "owner": "John Doe",
+                      "iban": "DE12500105170648489890",
+                      "bic": "ABCDDE12XXX"
+                  }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Containers
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Contracts/me/RequestId:
+    post:
+      description: ''
+      summary: Payment/Contracts requestId
+      tags:
+        - Payment.Contracts
+      operationId: Payment/Contracts requestId
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1contractsRequestidrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Contracts/me/RequestId
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contact": {
+                    "id": "CNT_2A3CJ9EEQ2MG9EFGX75XU95VEGGCA3"
+                  },
+                  "project": "project_name 2017-05-15 #123",
+                  "payout_account": {
+                      "iban" : "DE89370400440532013000",
+                      "bic" : "",
+                      "owner": "Test #1"
+                  },
+                  "iframe_opts": {
+                    "show_basket": true,
+                    "basket_title": "Projext XY unterstützen",
+                    "submit_button_title": "Zahlungspflichtig unterstützen"
+                  },
+                  "payin_account": false
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Contracts requestId
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupayprepays:
+    post:
+      description: Create a new prepay transaction
+      summary: Payment/Secupayprepays
+      tags:
+        - Payment.Secupayprepays
+      operationId: Payment/Secupayprepays
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupayprepaysrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupayprepays
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "customer": "PCU_WWNA76JGY2MB3BKAX75XU7DTHFWJA9",
+                  "amount": "100",
+                  "currency": "EUR",
+                  "purpose": "for what text",
+                  "order_id": "ZZZZZZ",
+                  "redirect_url": {
+                    "url_success": "http://shop.example.com?success=true",
+                    "url_failure": "http://shop.example.com?success=false",
+                    "url_push": "https://requestb.in/14f6a1j1"
+                  }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupayprepays
+          x-testDescription: Create a new prepay transaction
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupaycreditcards/xxxxc/cancel:
+    post:
+      description: ''
+      summary: Payment/Secupaycreditcards/hash_id/cancel
+      tags:
+        - Payment.Secupaycreditcards
+      operationId: Payment/Secupaycreditcards/hash_id/cancel
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupaycreditcards~1hashId~1cancelrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupaycreditcards/xxxxc/cancel
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "contract": "contract_id if transaction is for subcontract, empty if not!"
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupaycreditcards/hash_id/cancel
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupaycreditcards:
+    post:
+      description: Create a new creditcard transaction
+      summary: Payment/Secupaycreditcards
+      tags:
+        - Payment.Secupaycreditcards
+      operationId: Payment/Secupaycreditcards
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupaycreditcardsrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupaycreditcards
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "customer": "PCU_WWNA76JGY2MB3BKAX75XU7DTHFWJA9",
+                  "amount": "100",
+                  "currency": "EUR",
+                  "order_id": "ZZZZZZ",
+                  "accrual" : true
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupaycreditcards
+          x-testDescription: Create a new creditcard transaction
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Contracts/PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9:
+    get:
+      description: ''
+      summary: Payment/Contracts/pcr_xxxxx
+      tags:
+        - Payment.Contracts
+      operationId: Payment/Contracts/pcr_xxxxx1
+      produces:
+        - application/json
+      parameters:
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /Payment/Contracts/PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Contracts/pcr_xxxxx1
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Secupayinvoices:
+    post:
+      description: Create a new invoice transaction
+      summary: Payment/Secupayinvoices
+      tags:
+        - Payment.Secupayinvoices
+      operationId: Payment/Secupayinvoices
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1secupayinvoicesrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Secupayinvoices
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "customer": "PCU_2WBK46JNR2M54WHP875XUP0CQGBJAK",
+                  "amount": "100",
+                  "currency": "EUR",
+                  "purpose": "for what text",
+                  "order_id": "ZZZZZZ"
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Secupayinvoices
+          x-testDescription: Create a new invoice transaction
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Contracts:
+    get:
+      description: ''
+      summary: Payment/Contracts
+      tags:
+        - Payment.Contracts
+      operationId: Payment/Contracts
+      produces:
+        - application/json
+      parameters:
+        - name: q
+          in: query
+          required: true
+          type: string
+          description: ''
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: '/Payment/Contracts?q=id:PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9'
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Contracts
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      description: ''
+      summary: Payment/Contracts
+      tags:
+        - Payment.Contracts
+      operationId: Payment/Contracts1
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1contractsrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /Payment/Contracts
+            headers:
+              Content-Type: application/json
+              Accept: application/json
+              Accept-Charset: utf-8
+              Authorization: 'Bearer {{access_token}}'
+            body: |-
+              {
+                  "merchant": "MRC_WVHJQFQ4JNVYNG5B55TYK748ZCHQP8",
+                  "internal_reference": "181365",
+                  "contract_id": 49760,
+                  "demo": true,
+                  "debit_product_id": 20,
+                  "prepay_product_id": 37,
+                  "invoice_product_id": 329,
+                  "creditcard_product_id": 21,
+                  "url_push": "http://requestb.in/xcrbzxxc",
+                  "allow_transactions": true,
+                  "allow_cloning": true,
+                  "unique_order_id": false,
+                  "scoring": true,
+                  "sepa_mandate_inform": "never"
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Payment/Contracts1
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Payment/Contracts/PCR_2C0S37QHH2MASN9V875XU3YFNM8UA6:
+    put:
+      description: ''
+      summary: Payment/Contracts/pcr_xxxxx
+      tags:
+        - Payment.Contracts
+      operationId: Payment/Contracts/pcr_xxxxx2
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Payment~1contracts~1pcrXxxxxrequest'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - auth: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+definitions:
+  Payment/customers/pcuXxxxxrequest:
+    title: Payment/Customers/pcu_xxxxxRequest
+    example:
+      contact:
+        salutation: Mr.
+        title: Dr.
+        forename: John
+        surname: Doe
+        companyname: Example Inc.
+        dob: '1901-02-03'
+        email: example@example.com
+        phone: 0049-123-456789
+        mobile: 0049-987-654321
+        address:
+          street: Example Street
+          street_number: 6a
+          postal_code: '01234'
+          city: Examplecity
+          country: Germany
+    type: object
+    properties:
+      contact:
+        $ref: '#/definitions/Contact'
+    required:
+      - contact
+  Contact:
+    title: Contact
+    type: object
+    properties:
+      salutation:
+        description: ''
+        type: string
+      title:
+        description: ''
+        type: string
+      forename:
+        description: ''
+        type: string
+      surname:
+        description: ''
+        type: string
+      companyname:
+        description: ''
+        type: string
+      dob:
+        description: ''
+        type: string
+      email:
+        description: ''
+        type: string
+      phone:
+        description: ''
+        type: string
+      mobile:
+        description: ''
+        type: string
+      address:
+        $ref: '#/definitions/Address'
+    required:
+      - salutation
+      - title
+      - forename
+      - surname
+      - companyname
+      - dob
+      - email
+      - phone
+      - mobile
+      - address
+  Address:
+    title: Address
+    type: object
+    properties:
+      street:
+        description: ''
+        type: string
+      street_number:
+        description: ''
+        type: string
+      postal_code:
+        description: ''
+        type: string
+      city:
+        description: ''
+        type: string
+      country:
+        description: ''
+        type: string
+    required:
+      - street
+      - street_number
+      - postal_code
+      - city
+      - country
+  Period:
+    title: Period
+    type: object
+    properties:
+      date:
+        $ref: '#/definitions/Date14'
+      time:
+        $ref: '#/definitions/Time15'
+      day:
+        $ref: '#/definitions/Day'
+      recur:
+        description: ''
+        type: string
+    required:
+      - date
+      - time
+      - day
+      - recur
+  Date14:
+    title: Date14
+    type: object
+    properties:
+      start:
+        description: ''
+        type: string
+      end:
+        description: ''
+        type: string
+    required:
+      - start
+      - end
+  Time15:
+    title: Time15
+    type: object
+    properties:
+      start:
+        description: ''
+        type: string
+      end:
+        description: ''
+        type: string
+    required:
+      - start
+      - end
+  Day:
+    title: Day
+    type: object
+    properties:
+      mo:
+        description: ''
+        type: boolean
+      tu:
+        description: ''
+        type: boolean
+      we:
+        description: ''
+        type: boolean
+      th:
+        description: ''
+        type: boolean
+      fr:
+        description: ''
+        type: boolean
+      sa:
+        description: ''
+        type: boolean
+      su:
+        description: ''
+        type: boolean
+    required:
+      - mo
+      - tu
+      - we
+      - th
+      - fr
+      - sa
+      - su
+  Filters:
+    title: Filters
+    type: object
+    properties:
+      geo:
+        $ref: '#/definitions/Geo'
+      dem:
+        $ref: '#/definitions/Dem'
+      card:
+        $ref: '#/definitions/Card'
+    required:
+      - geo
+      - dem
+      - card
+  Geo:
+    title: Geo
+    type: object
+    properties:
+      states:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/State'
+      cities:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/City'
+      regions:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Region'
+      zipcodes:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Zipcode'
+      stores:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Store'
+    required:
+      - states
+      - cities
+      - regions
+      - zipcodes
+      - stores
+  State:
+    title: State
+    type: object
+    properties:
+      value:
+        description: ''
+        type: string
+      geojson:
+        $ref: '#/definitions/Geojson'
+    required:
+      - value
+      - geojson
+  Geojson:
+    title: Geojson
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      coordinates:
+        description: ''
+        type: array
+        items:
+          type: number
+          format: double
+    required:
+      - type
+      - coordinates
+  City:
+    title: City
+    type: object
+    properties:
+      value:
+        description: ''
+        type: string
+      geojson:
+        $ref: '#/definitions/Geojson'
+    required:
+      - value
+      - geojson
+  Region:
+    title: Region
+    type: object
+    properties:
+      value:
+        description: ''
+        type: string
+      geojson:
+        $ref: '#/definitions/Geojson'
+    required:
+      - value
+      - geojson
+  Zipcode:
+    title: Zipcode
+    type: object
+    properties:
+      value:
+        description: ''
+        type: string
+      geojson:
+        $ref: '#/definitions/Geojson'
+    required:
+      - value
+      - geojson
+  Store:
+    title: Store
+    type: object
+    properties:
+      value:
+        description: ''
+        type: string
+    required:
+      - value
+  Dem:
+    title: Dem
+    type: object
+    properties:
+      male:
+        description: ''
+        type: boolean
+      female:
+        description: ''
+        type: boolean
+      allAges:
+        description: ''
+        type: boolean
+      fromAge:
+        description: ''
+        type: string
+      toAge:
+        description: ''
+        type: string
+      hasBirthday:
+        description: ''
+        type: boolean
+    required:
+      - male
+      - female
+      - allAges
+      - fromAge
+      - toAge
+      - hasBirthday
+  Card:
+    title: Card
+    type: object
+    properties:
+      periods:
+        $ref: '#/definitions/Periods'
+      kind:
+        $ref: '#/definitions/Kind'
+      revenue:
+        $ref: '#/definitions/Revenue'
+      number:
+        $ref: '#/definitions/Number35'
+      bonus:
+        $ref: '#/definitions/Bonus'
+    required:
+      - periods
+      - kind
+      - revenue
+      - number
+      - bonus
+  Periods:
+    title: Periods
+    type: object
+    properties:
+      all:
+        description: ''
+        type: boolean
+      day:
+        $ref: '#/definitions/Day'
+      time:
+        $ref: '#/definitions/Time32'
+      lperiod:
+        description: ''
+        type: string
+    required:
+      - all
+      - day
+      - time
+      - lperiod
+  Time32:
+    title: Time32
+    type: object
+    properties:
+      from:
+        description: ''
+        type: string
+      to:
+        description: ''
+        type: string
+    required:
+      - from
+      - to
+  Kind:
+    title: Kind
+    type: object
+    properties:
+      charge:
+        description: ''
+        type: boolean
+      discharge:
+        description: ''
+        type: boolean
+      sales:
+        description: ''
+        type: boolean
+      chargePoints:
+        description: ''
+        type: boolean
+      usedPoints:
+        description: ''
+        type: boolean
+      checkins:
+        description: ''
+        type: boolean
+    required:
+      - charge
+      - discharge
+      - sales
+      - chargePoints
+      - usedPoints
+      - checkins
+  Revenue:
+    title: Revenue
+    type: object
+    properties:
+      all:
+        description: ''
+        type: boolean
+      range:
+        description: ''
+        type: array
+        items:
+          type: integer
+          format: int32
+      sum:
+        description: ''
+        type: boolean
+    required:
+      - all
+      - range
+      - sum
+  Number35:
+    title: Number35
+    type: object
+    properties:
+      all:
+        description: ''
+        type: boolean
+      range:
+        description: ''
+        type: array
+        items:
+          type: integer
+          format: int32
+      sum:
+        description: ''
+        type: boolean
+    required:
+      - all
+      - range
+      - sum
+  Bonus:
+    title: Bonus
+    type: object
+    properties:
+      all:
+        description: ''
+        type: boolean
+      range:
+        description: ''
+        type: array
+        items:
+          type: integer
+          format: int32
+      sum:
+        description: ''
+        type: boolean
+    required:
+      - all
+      - range
+      - sum
+  Actions:
+    title: Actions
+    type: object
+    properties:
+      communications:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Communication'
+      transaction:
+        $ref: '#/definitions/Transaction'
+    required:
+      - communications
+      - transaction
+  Communication:
+    title: Communication
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      text:
+        description: ''
+        type: string
+      recur:
+        description: ''
+        type: string
+      day:
+        $ref: '#/definitions/Day'
+      num:
+        description: ''
+        type: integer
+        format: int32
+    required:
+      - type
+      - text
+      - recur
+      - day
+      - num
+  Transaction:
+    title: Transaction
+    type: object
+    properties:
+      chargeAmount:
+        description: ''
+        type: integer
+        format: int32
+      dischargeAmount:
+        description: ''
+        type: integer
+        format: int32
+      increaseAmount:
+        $ref: '#/definitions/IncreaseAmount'
+    required:
+      - chargeAmount
+      - dischargeAmount
+      - increaseAmount
+  IncreaseAmount:
+    title: IncreaseAmount
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      value:
+        description: ''
+        type: integer
+        format: int32
+    required:
+      - type
+      - value
+  Assign:
+    title: Assign
+    type: object
+    properties:
+      object:
+        description: ''
+        type: string
+      id:
+        description: ''
+        type: string
+      owner:
+        description: ''
+        type: boolean
+    required:
+      - object
+      - id
+      - owner
+  Data:
+    title: Data
+    type: object
+    properties:
+      xml:
+        description: ''
+        type: string
+    required:
+      - xml
+  Payment/secupaydebitsrequest:
+    title: Payment/SecupaydebitsRequest
+    example:
+      subscription:
+        id: '932'
+      amount: '100'
+      purpose: for what text
+      contact:
+        email: test@example.com
+      basket:
+        - item_type: article
+          name: 'Super fancy product - 45,00 EUR'
+          price: 4500
+          quantity: 1
+          tax: 19
+          total: 4500
+        - item_type: shipping
+          name: 'DHL Paket National - 4,90 EUR'
+          price: 490
+          quantity: 1
+          tax: 19
+          total: 490
+        - apikey: 37373c132df0299c5bdcf7c7638dd47aa41a2fe2
+          item_type: stakeholder_payment
+          name: platform fee
+          price: 249
+          quantity: 1
+          total: 249
+    type: object
+    properties:
+      subscription:
+        $ref: '#/definitions/Subscription'
+      amount:
+        description: ''
+        type: string
+      purpose:
+        description: ''
+        type: string
+      contact:
+        $ref: '#/definitions/Contact54'
+      basket:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Basket'
+    required:
+      - subscription
+      - amount
+      - purpose
+      - contact
+      - basket
+  Subscription:
+    title: Subscription
+    type: object
+    properties:
+      id:
+        description: ''
+        type: string
+    required:
+      - id
+  Contact54:
+    title: Contact54
+    type: object
+    properties:
+      email:
+        description: ''
+        type: string
+    required:
+      - email
+  Basket:
+    title: Basket
+    type: object
+    properties:
+      item_type:
+        description: ''
+        type: string
+      name:
+        description: ''
+        type: string
+      price:
+        description: ''
+        type: integer
+        format: int32
+      quantity:
+        description: ''
+        type: integer
+        format: int32
+      total:
+        description: ''
+        type: integer
+        format: int32
+      tax:
+        description: ''
+        type: integer
+        format: int32
+      apikey:
+        description: ''
+        type: string
+    required:
+      - item_type
+      - name
+      - price
+      - quantity
+      - total
+  Basket58:
+    title: Basket58
+    type: object
+    properties:
+      products:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Product'
+      texts:
+        description: ''
+        type: array
+        items:
+          type: string
+    required:
+      - products
+      - texts
+  Product:
+    title: Product
+    type: object
+    properties:
+      id:
+        description: ''
+        type: integer
+        format: int32
+      articleNumber:
+        description: ''
+        type: string
+      ean:
+        description: ''
+        type: string
+      desc:
+        description: ''
+        type: string
+      quantity:
+        description: ''
+        type: integer
+        format: int32
+      priceOne:
+        description: ''
+        type: integer
+        format: int32
+      tax:
+        description: ''
+        type: integer
+        format: int32
+      group:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+      parent:
+        description: ''
+        type: integer
+        format: int32
+    required:
+      - id
+      - articleNumber
+      - ean
+      - desc
+      - quantity
+      - priceOne
+      - tax
+      - group
+  Group:
+    title: Group
+    type: object
+    properties:
+      id:
+        description: ''
+        type: string
+      desc:
+        description: ''
+        type: string
+      level:
+        description: ''
+        type: integer
+        format: int32
+    required:
+      - id
+      - desc
+      - level
+  BasketInfo:
+    title: BasketInfo
+    type: object
+    properties:
+      sum:
+        description: ''
+        type: integer
+        format: int32
+      currency:
+        description: ''
+        type: string
+    required:
+      - sum
+      - currency
+  StoreCheckinsChangedrequest:
+    title: Store checkins changedRequest
+    example:
+      object: event.pushes
+      id: XXX_XXXXXXXXXXX
+      created: '2015-02-02T10:40:50+00:00'
+      target: general.stores
+      type: checkin.changed
+      data:
+        - object: general.stores
+          id: XXX_XXXXXXXXXXXXXXXXXXXXXXXX
+    type: object
+    properties:
+      object:
+        description: ''
+        type: string
+      id:
+        description: ''
+        type: string
+      created:
+        description: ''
+        type: string
+      target:
+        description: ''
+        type: string
+      type:
+        description: ''
+        type: string
+      data:
+        description: ''
+        type: array
+        items:
+          $ref: '#/definitions/Data63'
+    required:
+      - object
+      - id
+      - created
+      - target
+      - type
+      - data
+  Data63:
+    title: Data63
+    type: object
+    properties:
+      object:
+        description: ''
+        type: string
+      id:
+        description: ''
+        type: string
+    required:
+      - object
+      - id
+  Payment/secupayprepays/hashId/cancelrequest:
+    title: Payment/Secupayprepays/hash_id/cancelRequest
+    example:
+      contract: 'contract_id if transaction is for subcontract, empty if not!'
+    type: object
+    properties:
+      contract:
+        description: ''
+        type: string
+    required:
+      - contract
+  Payment/secupayinvoices/hashId/cancelrequest:
+    title: Payment/Secupayinvoices/hash_id/cancelRequest
+    example:
+      contract: 'contract_id if transaction is for subcontract, empty if not!'
+    type: object
+    properties:
+      contract:
+        description: ''
+        type: string
+    required:
+      - contract
+  Payment/contractsClonerequest:
+    title: Payment/Contracts cloneRequest
+    example:
+      contact:
+        id: CNT_2PJXRWYRK2YATU9MB5GQGJPRR3Q3AJ
+      project: 'project_name 2017-05-15 #2'
+      payout_account:
+        iban: DE89370400440532013000
+        bic: ''
+        owner: 'Test #1'
+      iframe_opts:
+        show_basket: true
+        basket_title: Projext XY unterstützen
+        submit_button_title: Zahlungspflichtig unterstützen
+      payin_account: false
+    type: object
+    properties:
+      contact:
+        $ref: '#/definitions/Contact120'
+      project:
+        description: ''
+        type: string
+      payout_account:
+        $ref: '#/definitions/PayoutAccount'
+      iframe_opts:
+        $ref: '#/definitions/IframeOpts'
+      payin_account:
+        description: ''
+        type: boolean
+    required:
+      - contact
+      - project
+      - payout_account
+      - iframe_opts
+      - payin_account
+  Contact120:
+    title: Contact120
+    type: object
+    properties:
+      id:
+        description: ''
+        type: string
+    required:
+      - id
+  PayoutAccount:
+    title: PayoutAccount
+    type: object
+    properties:
+      iban:
+        description: ''
+        type: string
+      bic:
+        description: ''
+        type: string
+      owner:
+        description: ''
+        type: string
+    required:
+      - iban
+      - bic
+      - owner
+  IframeOpts:
+    title: IframeOpts
+    type: object
+    properties:
+      show_basket:
+        description: ''
+        type: boolean
+      basket_title:
+        description: ''
+        type: string
+      submit_button_title:
+        description: ''
+        type: string
+    required:
+      - show_basket
+      - basket_title
+      - submit_button_title
+  Payment/contractsCloneresponse:
+    title: Payment/Contracts cloneResponse
+    example:
+      apikey: 7c0558743748e2872a30b8a839d15d7434d3fdf7
+      contract_id: PCR_27CQJ0AS22M7TT8BX75XUP50TY0UA2
+      payin_account:
+        accountowner: 'null'
+        iban: 'null'
+        bic: 'null'
+    type: object
+    properties:
+      apikey:
+        description: ''
+        type: string
+      contract_id:
+        description: ''
+        type: string
+      payin_account:
+        $ref: '#/definitions/PayinAccount'
+    required:
+      - apikey
+      - contract_id
+      - payin_account
+  PayinAccount:
+    title: PayinAccount
+    type: object
+    properties:
+      accountowner:
+        description: ''
+        type: string
+      iban:
+        description: ''
+        type: string
+      bic:
+        description: ''
+        type: string
+    required:
+      - accountowner
+      - iban
+      - bic
+  Payment/secupaydebits/hashId/cancelrequest:
+    title: Payment/Secupaydebits/hash_id/cancelRequest
+    example:
+      contract: 'contract_id if transaction is for subcontract, empty if not!'
+    type: object
+    properties:
+      contract:
+        description: ''
+        type: string
+    required:
+      - contract
+  Payment/containersrequest:
+    title: Payment/ContainersRequest
+    example:
+      type: bank_account
+      private:
+        owner: John Doe
+        iban: DE12500105170648489890
+        bic: ABCDDE12XXX
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      private:
+        $ref: '#/definitions/Private'
+    required:
+      - type
+      - private
+  Private:
+    title: Private
+    type: object
+    properties:
+      owner:
+        description: ''
+        type: string
+      iban:
+        description: ''
+        type: string
+      bic:
+        description: ''
+        type: string
+    required:
+      - owner
+      - iban
+      - bic
+  Payment/customersrequest:
+    title: Payment/CustomersRequest
+    example:
+      contact:
+        salutation: Mr.
+        title: Dr.
+        forename: John
+        surname: Doe
+        companyname: Example Inc.
+        dob: '1901-02-03'
+        email: example@example.com
+        phone: 0049-123-456789
+        mobile: 0049-987-654321
+        address:
+          street: Example Street
+          street_number: 6a
+          postal_code: '01234'
+          city: Examplecity
+          country: Germany
+    type: object
+    properties:
+      contact:
+        $ref: '#/definitions/Contact'
+    required:
+      - contact
+  Payment/secupayprepaysrequest:
+    title: Payment/SecupayprepaysRequest
+    example:
+      customer: PCU_WWNA76JGY2MB3BKAX75XU7DTHFWJA9
+      amount: '100'
+      currency: EUR
+      purpose: for what text
+      order_id: ZZZZZZ
+      redirect_url:
+        url_success: 'http://shop.example.com?success=true'
+        url_failure: 'http://shop.example.com?success=false'
+        url_push: 'https://requestb.in/14f6a1j1'
+    type: object
+    properties:
+      customer:
+        description: ''
+        type: string
+      amount:
+        description: ''
+        type: string
+      currency:
+        description: ''
+        type: string
+      purpose:
+        description: ''
+        type: string
+      order_id:
+        description: ''
+        type: string
+      redirect_url:
+        $ref: '#/definitions/RedirectUrl'
+    required:
+      - customer
+      - amount
+      - currency
+      - purpose
+      - order_id
+      - redirect_url
+  RedirectUrl:
+    title: RedirectUrl
+    type: object
+    properties:
+      url_success:
+        description: ''
+        type: string
+      url_failure:
+        description: ''
+        type: string
+      url_push:
+        description: ''
+        type: string
+    required:
+      - url_success
+      - url_failure
+      - url_push
+  General/contacts/cntXxxxxrequest:
+    title: General/Contacts/cnt_xxxxxRequest
+    example:
+      salutation: Mrs.
+      title: Dr.
+      forename: Jane
+      surname: Doe
+      companyname: Example Inc.
+      gender: w
+      dob: '1902-03-04'
+      url_website: example.com
+      birthplace: New Examplecity
+      nationality: german
+      address:
+        type: invoice
+        street: Example Street
+        street_number: 6a
+        postal_code: '01234'
+        city: Examplecity
+        country: Germany
+      email:
+        type: invoice
+        email: example@example.com
+      phone:
+        type: invoice
+        phone: 0049-123-456789
+    type: object
+    properties:
+      salutation:
+        description: ''
+        type: string
+      title:
+        description: ''
+        type: string
+      forename:
+        description: ''
+        type: string
+      surname:
+        description: ''
+        type: string
+      companyname:
+        description: ''
+        type: string
+      gender:
+        description: ''
+        type: string
+      dob:
+        description: ''
+        type: string
+      url_website:
+        description: ''
+        type: string
+      birthplace:
+        description: ''
+        type: string
+      nationality:
+        description: ''
+        type: string
+      address:
+        $ref: '#/definitions/Address296'
+      email:
+        $ref: '#/definitions/Email'
+      phone:
+        $ref: '#/definitions/Phone'
+    required:
+      - salutation
+      - title
+      - forename
+      - surname
+      - companyname
+      - gender
+      - dob
+      - url_website
+      - birthplace
+      - nationality
+      - address
+      - email
+      - phone
+  Address296:
+    title: Address296
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      street:
+        description: ''
+        type: string
+      street_number:
+        description: ''
+        type: string
+      postal_code:
+        description: ''
+        type: string
+      city:
+        description: ''
+        type: string
+      country:
+        description: ''
+        type: string
+    required:
+      - type
+      - street
+      - street_number
+      - postal_code
+      - city
+      - country
+  Email:
+    title: Email
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      email:
+        description: ''
+        type: string
+    required:
+      - type
+      - email
+  Phone:
+    title: Phone
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      phone:
+        description: ''
+        type: string
+    required:
+      - type
+      - phone
+  Payment/secupaycreditcards/hashId/cancelrequest:
+    title: Payment/Secupaycreditcards/hash_id/cancelRequest
+    example:
+      contract: 'contract_id if transaction is for subcontract, empty if not!'
+    type: object
+    properties:
+      contract:
+        description: ''
+        type: string
+    required:
+      - contract
+  Payment/containers/pctXxxxxrequest:
+    title: Payment/Containers/pct_xxxxxRequest
+    example:
+      type: bank_account
+      private:
+        owner: John Doe
+        iban: DE12123456781234567890
+        bic: ABCDDE12XXX
+    type: object
+    properties:
+      type:
+        description: ''
+        type: string
+      private:
+        $ref: '#/definitions/Private'
+    required:
+      - type
+      - private
+  Payment/secupaycreditcardsrequest:
+    title: Payment/SecupaycreditcardsRequest
+    example:
+      customer: PCU_WWNA76JGY2MB3BKAX75XU7DTHFWJA9
+      amount: '100'
+      currency: EUR
+      order_id: ZZZZZZ
+      accrual: true
+    type: object
+    properties:
+      customer:
+        description: ''
+        type: string
+      amount:
+        description: ''
+        type: string
+      currency:
+        description: ''
+        type: string
+      order_id:
+        description: ''
+        type: string
+      accrual:
+        description: ''
+        type: boolean
+    required:
+      - customer
+      - amount
+      - currency
+      - order_id
+      - accrual
+  Payment/transactions/pciXxxxxxx/cancelrequest:
+    title: Payment/Transactions/pci_xxxxxxx/cancelRequest
+    example:
+      amount: 2
+      reason: Money back because xxxx
+    type: object
+    properties:
+      amount:
+        description: ''
+        type: integer
+        format: int32
+      reason:
+        description: ''
+        type: string
+    required:
+      - amount
+      - reason
+  Payment/secupayinvoicesrequest:
+    title: Payment/SecupayinvoicesRequest
+    example:
+      customer: PCU_2WBK46JNR2M54WHP875XUP0CQGBJAK
+      amount: '100'
+      currency: EUR
+      purpose: for what text
+      order_id: ZZZZZZ
+    type: object
+    properties:
+      customer:
+        description: ''
+        type: string
+      amount:
+        description: ''
+        type: string
+      currency:
+        description: ''
+        type: string
+      purpose:
+        description: ''
+        type: string
+      order_id:
+        description: ''
+        type: string
+    required:
+      - customer
+      - amount
+      - currency
+      - purpose
+      - order_id
+  Payment/contractsRequestidrequest:
+    title: Payment/Contracts requestIdRequest
+    example:
+      contact:
+        id: CNT_2A3CJ9EEQ2MG9EFGX75XU95VEGGCA3
+      project: 'project_name 2017-05-15 #123'
+      payout_account:
+        iban: DE89370400440532013000
+        bic: ''
+        owner: 'Test #1'
+      iframe_opts:
+        show_basket: true
+        basket_title: Projext XY unterstützen
+        submit_button_title: Zahlungspflichtig unterstützen
+      payin_account: false
+    type: object
+    properties:
+      contact:
+        $ref: '#/definitions/Contact120'
+      project:
+        description: ''
+        type: string
+      payout_account:
+        $ref: '#/definitions/PayoutAccount'
+      iframe_opts:
+        $ref: '#/definitions/IframeOpts'
+      payin_account:
+        description: ''
+        type: boolean
+    required:
+      - contact
+      - project
+      - payout_account
+      - iframe_opts
+      - payin_account
+  Payment/contracts/pcrXxxxxrequest:
+    title: Payment/Contracts/pcr_xxxxxRequest
+    example:
+      merchant: MRC_WVHJQFQ4JNVYNG5B55TYK748ZCHQP8
+      internal_reference: '264748'
+      contract_id: 49760
+      demo: true
+      debit_product_id: 20
+      prepay_product_id: 37
+      invoice_product_id: 267
+      creditcard_product_id: 21
+      url_push: 'http://example.com/push_url'
+      allow_transactions: true
+      allow_cloning: false
+      unique_order_id: false
+      scoring: true
+      sepa_mandate_inform: never
+    type: object
+    properties:
+      merchant:
+        description: ''
+        type: string
+      internal_reference:
+        description: ''
+        type: string
+      contract_id:
+        description: ''
+        type: integer
+        format: int32
+      demo:
+        description: ''
+        type: boolean
+      debit_product_id:
+        description: ''
+        type: integer
+        format: int32
+      prepay_product_id:
+        description: ''
+        type: integer
+        format: int32
+      invoice_product_id:
+        description: ''
+        type: integer
+        format: int32
+      creditcard_product_id:
+        description: ''
+        type: integer
+        format: int32
+      url_push:
+        description: ''
+        type: string
+      allow_transactions:
+        description: ''
+        type: boolean
+      allow_cloning:
+        description: ''
+        type: boolean
+      unique_order_id:
+        description: ''
+        type: boolean
+      scoring:
+        description: ''
+        type: boolean
+      sepa_mandate_inform:
+        description: ''
+        type: string
+    required:
+      - merchant
+      - internal_reference
+      - contract_id
+      - demo
+      - debit_product_id
+      - prepay_product_id
+      - invoice_product_id
+      - creditcard_product_id
+      - url_push
+      - allow_transactions
+      - allow_cloning
+      - unique_order_id
+      - scoring
+      - sepa_mandate_inform
+  Payment/contractsrequest:
+    title: Payment/ContractsRequest
+    example:
+      merchant: MRC_WVHJQFQ4JNVYNG5B55TYK748ZCHQP8
+      internal_reference: '181365'
+      contract_id: 49760
+      demo: true
+      debit_product_id: 20
+      prepay_product_id: 37
+      invoice_product_id: 329
+      creditcard_product_id: 21
+      url_push: 'http://requestb.in/xcrbzxxc'
+      allow_transactions: true
+      allow_cloning: true
+      unique_order_id: false
+      scoring: true
+      sepa_mandate_inform: never
+    type: object
+    properties:
+      merchant:
+        description: ''
+        type: string
+      internal_reference:
+        description: ''
+        type: string
+      contract_id:
+        description: ''
+        type: integer
+        format: int32
+      demo:
+        description: ''
+        type: boolean
+      debit_product_id:
+        description: ''
+        type: integer
+        format: int32
+      prepay_product_id:
+        description: ''
+        type: integer
+        format: int32
+      invoice_product_id:
+        description: ''
+        type: integer
+        format: int32
+      creditcard_product_id:
+        description: ''
+        type: integer
+        format: int32
+      url_push:
+        description: ''
+        type: string
+      allow_transactions:
+        description: ''
+        type: boolean
+      allow_cloning:
+        description: ''
+        type: boolean
+      unique_order_id:
+        description: ''
+        type: boolean
+      scoring:
+        description: ''
+        type: boolean
+      sepa_mandate_inform:
+        description: ''
+        type: string
+    required:
+      - merchant
+      - internal_reference
+      - contract_id
+      - demo
+      - debit_product_id
+      - prepay_product_id
+      - invoice_product_id
+      - creditcard_product_id
+      - url_push
+      - allow_transactions
+      - allow_cloning
+      - unique_order_id
+      - scoring
+      - sepa_mandate_inform
