@@ -1,21 +1,10 @@
 swagger: '2.0'
 info:
-  version: '1.0'
-  title: secucore.api
-  description: 'TODO: Add Description'
-  license:
-    name: MIT
-    url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT'
-host: example.com
-basePath: /
-securityDefinitions:
-  auth:
-    type: oauth2
-    flow: implicit
-    authorizationUrl: 'http://example.com'
-    scopes: {}
+  version: '2.0.0'
+  title: secuconnect API
+host: connect-testing.secupay-ag.de
 schemes:
-  - http
+  - https
 consumes:
   - application/json
 produces:
@@ -28,8 +17,6 @@ paths:
       tags:
         - Auth (oauth)
       operationId: oAuth token appuser
-      produces:
-        - application/json
       consumes:
         - application/x-www-form-urlencoded
       parameters:
@@ -38,124 +25,78 @@ paths:
           required: true
           type: string
           description: ''
+          enum: [client_credentials,appuser,refresh_token,device]
         - name: client_id
           in: formData
           required: true
           type: string
-          description: ''
+          description: 'Client-ID'
+          default: '09ae83af7c37121b2de929b211bad944'
         - name: client_secret
           in: formData
           required: true
           type: string
-          description: ''
+          description: 'Client-Secret'
+          default: '9c5f250b69f6436cb38fd780349bc00810d8d5051d3dcf821e428f65a32724bd'
         - name: username
           in: formData
-          required: true
+          required: false
           type: string
           description: ''
         - name: password
           in: formData
-          required: true
+          required: false
           type: string
           description: ''
         - name: device
           in: formData
-          required: true
+          required: false
           type: string
           description: ''
         - name: 'deviceinfo[name]'
           in: formData
-          required: true
-          type: string
-          description: ''
-        - name: Content-Type
-          in: header
-          required: true
+          required: false
           type: string
           description: ''
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
-      x-unitTests:
-        - request:
-            method: POST
-            uri: /oauth/token
-            headers:
-              Content-Type: application/x-www-form-urlencoded
-            body: 'grant_type=appuser&client_id=app.main.secucard&client_secret=not set&username=r.simlinger@secupay.ag&password=TestPassword01xxx&device=XYZ&deviceinfo[name]=value'
-          expectedResponse:
-            x-allowExtraHeaders: true
-            x-bodyMatchMode: NONE
-            x-arrayOrderedMatching: false
-            x-arrayCheckCount: false
-            x-matchResponseSchema: true
-            headers: {}
-          x-testShouldPass: true
-          x-testEnabled: true
-          x-testName: oAuth token appuser
-          x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /Payment/Customers/PCU_DZA92XXXZ2M49MRW875XUHXR9A8DAA:
+          schema:
+            $ref: '#/definitions/OAuth200'
+        '400':
+          description: ''
+          schema:
+            $ref: '#/definitions/OAuth400'
+
+  /api/v2/Payment/Customers/{ID}:
     get:
-      description: ''
-      summary: Payment/Customers/pcu_xxxxx
+      description: 'Get the data of a specific customer'
+      summary: Get the data of a specific customer
       tags:
         - Payment.Customers
-      operationId: Payment/Customers/pcu_xxxxx1
+      operationId: Payment/Customers/PCU_XXX
       produces:
         - application/json
       parameters:
-        - name: Accept
-          in: header
-          required: true
+        - in: path
+          name: ID
           type: string
-          description: ''
-        - name: Content-Type
-          in: header
           required: true
+          description: 'The ID of the customer (PCU_...)'
+          format: 'PCU_[A-Z0-9]'
+        - in: header
+          name: Authorization
           type: string
-          description: ''
-        - name: Accept-Charset
-          in: header
           required: true
-          type: string
-          description: ''
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: ''
+          description: 'The access token'
+          format: 'Bearer [a-z0-9]'
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
-      x-unitTests:
-        - request:
-            method: GET
-            uri: /Payment/Customers/PCU_DZA92XXXZ2M49MRW875XUHXR9A8DAA
-            headers:
-              Accept: application/json
-              Content-Type: application/json
-              Accept-Charset: utf-8
-              Authorization: 'Bearer {{access_token}}'
-          expectedResponse:
-            x-allowExtraHeaders: true
-            x-bodyMatchMode: NONE
-            x-arrayOrderedMatching: false
-            x-arrayCheckCount: false
-            x-matchResponseSchema: true
-            headers: {}
-          x-testShouldPass: true
-          x-testEnabled: true
-          x-testName: Payment/Customers/pcu_xxxxx1
-          x-testDescription: ''
+        '404':
+          description: 'No data found'
+          schema:
+            $ref: '#/definitions/NotFound'
       x-operation-settings:
         CollectParameters: false
         AllowDynamicQueryParameters: false
@@ -199,8 +140,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: PUT
@@ -279,8 +218,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: DELETE
@@ -306,7 +243,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupaydebits:
+  /api/v2/Payment/Secupaydebits:
     post:
       description: Create a new debit transaction
       summary: Payment/Secupaydebits
@@ -345,8 +282,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -406,7 +341,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Containers/pct_xxxxx:
+  /api/v2/Payment/Containers/pct_xxxxx:
     put:
       description: ''
       summary: Payment/Containers/pct_xxxxx
@@ -445,8 +380,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: PUT
@@ -513,8 +446,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: DELETE
@@ -540,7 +471,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Customers:
+  /api/v2/Payment/Customers:
     get:
       description: ''
       summary: Payment/Customers
@@ -573,8 +504,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -638,8 +567,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -686,7 +613,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Containers/pct_xxxxx/assign/pcu_xxxxx:
+  /api/v2/Payment/Containers/pct_xxxxx/assign/pcu_xxxxx:
     post:
       description: ''
       summary: 'Payment/Containers/pct_xxxxx assign '
@@ -719,8 +646,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -746,7 +671,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupaycreditcards/xxx:
+  /api/v2/Payment/Secupaycreditcards/xxx:
     get:
       description: ''
       summary: Payment/Secupaycreditcards/xxx
@@ -769,8 +694,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -794,7 +717,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Transactions:
+  /api/v2/Payment/Transactions:
     get:
       description: ''
       summary: Payment/Transactions
@@ -817,8 +740,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -842,7 +763,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupayinvoices/xxx:
+  /api/v2/Payment/Secupayinvoices/xxx:
     get:
       description: ''
       summary: Payment/Secupayinvoices/xxx
@@ -865,8 +786,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -890,7 +809,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupayprepays/xxxxx/cancel:
+  /api/v2/Payment/Secupayprepays/xxxxx/cancel:
     post:
       description: ''
       summary: Payment/Secupayprepays/hash_id/cancel
@@ -929,8 +848,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -960,7 +877,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupayinvoices/xxxxc/cancel:
+  /api/v2/Payment/Secupayinvoices/xxxxc/cancel:
     post:
       description: ''
       summary: Payment/Secupayinvoices/hash_id/cancel
@@ -999,8 +916,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1030,7 +945,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupayprepays/xxx:
+  /api/v2/Payment/Secupayprepays/xxx:
     get:
       description: ''
       summary: Payment/Secupayprepays/xxx
@@ -1053,8 +968,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -1078,7 +991,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Contracts/me/clone:
+  /api/v2/Payment/Contracts/me/clone:
     post:
       description: ''
       summary: Payment/Contracts clone
@@ -1127,8 +1040,6 @@ paths:
                 accountowner: 'null'
                 iban: 'null'
                 bic: 'null'
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1187,7 +1098,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Contracts/pcr_xxxxx:
+  /api/v2/Payment/Contracts/pcr_xxxxx:
     delete:
       description: ''
       summary: Payment/Contracts/pcr_xxxxx
@@ -1220,8 +1131,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: DELETE
@@ -1247,7 +1156,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupaydebits/xxxxc/cancel:
+  /api/v2/Payment/Secupaydebits/xxxxc/cancel:
     post:
       description: ''
       summary: Payment/Secupaydebits/hash_id/cancel
@@ -1286,8 +1195,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1317,7 +1224,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupaydebits/xxx:
+  /api/v2/Payment/Secupaydebits/xxx:
     get:
       description: ''
       summary: Payment/Secupaydebits/xxx
@@ -1340,8 +1247,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -1365,7 +1270,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Containers/pct_xxxxx/assign:
+  /api/v2/Payment/Containers/pct_xxxxx/assign:
     delete:
       description: ''
       summary: Payment/Containers/pct_xxxxx assign
@@ -1398,8 +1303,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: DELETE
@@ -1425,7 +1328,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Containers:
+  /api/v2/Payment/Containers:
     get:
       description: ''
       summary: Payment/Containers
@@ -1458,8 +1361,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -1523,8 +1424,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1559,7 +1458,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Contracts/me/RequestId:
+  /api/v2/Payment/Contracts/me/RequestId:
     post:
       description: ''
       summary: Payment/Contracts requestId
@@ -1598,8 +1497,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1643,7 +1540,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupayprepays:
+  /api/v2/Payment/Secupayprepays:
     post:
       description: Create a new prepay transaction
       summary: Payment/Secupayprepays
@@ -1682,8 +1579,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1722,7 +1617,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupaycreditcards/xxxxc/cancel:
+  /api/v2/Payment/Secupaycreditcards/xxxxc/cancel:
     post:
       description: ''
       summary: Payment/Secupaycreditcards/hash_id/cancel
@@ -1761,8 +1656,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1792,7 +1685,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupaycreditcards:
+  /api/v2/Payment/Secupaycreditcards:
     post:
       description: Create a new creditcard transaction
       summary: Payment/Secupaycreditcards
@@ -1831,8 +1724,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -1866,7 +1757,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Contracts/PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9:
+  /api/v2/Payment/Contracts/PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9:
     get:
       description: ''
       summary: Payment/Contracts/pcr_xxxxx
@@ -1899,8 +1790,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -1926,7 +1815,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Secupayinvoices:
+  /api/v2/Payment/Secupayinvoices:
     post:
       description: Create a new invoice transaction
       summary: Payment/Secupayinvoices
@@ -1965,8 +1854,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -2000,7 +1887,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Contracts:
+  /api/v2/Payment/Contracts:
     get:
       description: ''
       summary: Payment/Contracts
@@ -2038,8 +1925,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: GET
@@ -2103,8 +1988,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-unitTests:
         - request:
             method: POST
@@ -2147,7 +2030,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /Payment/Contracts/PCR_2C0S37QHH2MASN9V875XU3YFNM8UA6:
+  /api/v2/Payment/Contracts/PCR_2C0S37QHH2MASN9V875XU3YFNM8UA6:
     put:
       description: ''
       summary: Payment/Contracts/pcr_xxxxx
@@ -2186,8 +2069,6 @@ paths:
       responses:
         '200':
           description: ''
-      security:
-        - auth: []
       x-operation-settings:
         CollectParameters: false
         AllowDynamicQueryParameters: false
@@ -3711,3 +3592,64 @@ definitions:
       - unique_order_id
       - scoring
       - sepa_mandate_inform
+  OAuth200:
+    title: 'oauth 2.0 successful response'
+    type: object
+    properties:
+      access_token:
+        description: 'The acces token'
+        type: string
+        example: 'd1p7enuvrqc7hksgppfaherk51'
+      expires_in:
+        description: 'Expire time in seconds'
+        type: integer
+        example: 1200
+      token_type:
+        description: 'The type of the access token'
+        type: string
+        example: 'bearer'
+      scope:
+        description: 'The scope name'
+        type: string
+        example: 'https://scope.secucard.com/e/api'
+  OAuth400:
+    title: 'oauth 2.0 error response'
+    type: object
+    properties:
+      error:
+        description: 'The acces token'
+        type: string
+        example: 'invalid_client'
+      error_description:
+        description: 'Expire time in seconds'
+        type: string
+        example: 'The client credentials are invalid'
+  NotFound:
+    title: 'Not found error response'
+    type: object
+    properties:
+      status:
+        description: 'Response-Status'
+        type: string
+        enum: ['error']
+        example: 'error'
+      error:
+        description: 'Exception name'
+        type: string
+        example: 'ProductNotFoundException'
+      error_details:
+        description: 'Exception details'
+        type: string
+        example: 'Unknown id'
+      error_user:
+        description: 'Exception details for the user'
+        type: string
+        example: 'Es ist ein unbekannter Fehler aufgetreten'
+      code:
+        description: 'Exception name'
+        type: integer
+        example: 0
+      supportId:
+        description: 'Support-ID'
+        type: string
+        example: 'ae39890c91374e5422a16d11476ab96b'
