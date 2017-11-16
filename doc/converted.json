@@ -1,0 +1,1456 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v2 (2017-11-16)",
+    "title": "secuconnect API",
+    "description": "The API is available at https://connect.secucard.com or for testing at https://connect-testing.secupay-ag.de. It is RESTful and uses json as the exchange format. SSL is mandatory and used for all communication. OAuth2 is used for authorization and authentication. The API can also used via STOMP.",
+    "license": {
+      "name": "MIT",
+      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+    }
+  },
+  "host": "connect-testing.secupay-ag.de",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/oauth/token": {
+      "post": {
+        "description": "Authenticate you against the API",
+        "summary": "oAuth token appuser",
+        "tags": [
+          "Auth (oauth)"
+        ],
+        "operationId": "oAuth token appuser",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "grant_type",
+            "in": "formData",
+            "required": true,
+            "enum": [
+              "client_credentials",
+              "appuser",
+              "refresh_token",
+              "device"
+            ],
+            "type": "string",
+            "description": "The type of the credentials"
+          },
+          {
+            "name": "client_id",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "The Client-ID"
+          },
+          {
+            "name": "client_secret",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "The Client-Secret"
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The user name (required for grant_type \"appuser\")"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The user password (required for grant_type \"appuser\")"
+          },
+          {
+            "name": "device",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The device id (uuid) (required for grant_type \"device\")"
+          },
+          {
+            "name": "deviceinfo[name]",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The device name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Oauth_200_OK"
+            },
+            "examples": {}
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Oauth_400_Error"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Customers": {
+      "get": {
+        "description": "Get a list of customer data",
+        "summary": "Get customer list",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerList"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Payment/Customers",
+        "summary": "Create customer",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Customers/{PCU_ID}": {
+      "get": {
+        "description": "Get the data of a specific customer",
+        "summary": "Get customer",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers/PCU_XXX",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PCU_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID of the customer (PCU_...)"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The access token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerList"
+            },
+            "examples": {}
+          },
+          "404": {
+            "description": "No data found",
+            "schema": {
+              "$ref": "#/definitions/404_Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update the data of a specific customer",
+        "summary": "Update customer",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers/",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "The payload",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "PCU_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete the data of a specific customer",
+        "summary": "Remove customer",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers/PCU_XXX1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "PCU_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Containers": {
+      "get": {
+        "description": "Payment/Containers",
+        "summary": "Get payment containers",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Payment/Containers",
+        "summary": "Create payment container",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Containers/PCT_ID": {
+      "get": {
+        "description": "Get the data of a specific customer",
+        "summary": "Payment/Containers/PCT_XXX",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/PCT_XXX",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PCT_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID of the Containers (PCT_...)"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The access token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Container"
+            },
+            "examples": {}
+          },
+          "404": {
+            "description": "No data found",
+            "schema": {
+              "$ref": "#/definitions/404_Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Payment/Containers/PCT_ID",
+        "summary": "Payment/Containers/PCT_ID",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/PCT_ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Payment/Containers/PCT_ID",
+        "summary": "Payment/Containers/PCT_ID",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/PCT_ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Containers/PCT_ID/assign": {
+      "delete": {
+        "description": "Payment/Containers/PCT_ID assign",
+        "summary": "Payment/Containers/PCT_ID assign",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/PCT_ID assign",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Containers/PCT_ID/assign/ID2": {
+      "post": {
+        "description": "Payment/Containers/PCT_ID assign ",
+        "summary": "Payment/Containers/PCT_ID assign ",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/PCT_ID assign ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaydebits": {
+      "post": {
+        "description": "Create a new debit transaction",
+        "summary": "Payment/Secupaydebits",
+        "tags": [
+          "Payment.Secupaydebits"
+        ],
+        "operationId": "Payment/Secupaydebits",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaycreditcards/xxx": {
+      "get": {
+        "description": "Payment/Secupaycreditcards/xxx",
+        "summary": "Payment/Secupaycreditcards/xxx",
+        "tags": [
+          "Payment.Secupaycreditcards"
+        ],
+        "operationId": "Payment/Secupaycreditcards/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Transactions": {
+      "get": {
+        "description": "Payment/Transactions",
+        "summary": "Payment/Transactions",
+        "tags": [
+          "Payment.Transactions"
+        ],
+        "operationId": "Payment/Transactions",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayinvoices/xxx": {
+      "get": {
+        "description": "Payment/Secupayinvoices/xxx",
+        "summary": "Payment/Secupayinvoices/xxx",
+        "tags": [
+          "Payment.Secupayinvoices"
+        ],
+        "operationId": "Payment/Secupayinvoices/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayprepays/xxxxx/cancel": {
+      "post": {
+        "description": "Payment/Secupayprepays/hash_id/cancel",
+        "summary": "Payment/Secupayprepays/hash_id/cancel",
+        "tags": [
+          "Payment.Secupayprepays"
+        ],
+        "operationId": "Payment/Secupayprepays/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayinvoices/xxxxc/cancel": {
+      "post": {
+        "description": "Payment/Secupayinvoices/hash_id/cancel",
+        "summary": "Payment/Secupayinvoices/hash_id/cancel",
+        "tags": [
+          "Payment.Secupayinvoices"
+        ],
+        "operationId": "Payment/Secupayinvoices/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayprepays/xxx": {
+      "get": {
+        "description": "Payment/Secupayprepays/xxx",
+        "summary": "Payment/Secupayprepays/xxx",
+        "tags": [
+          "Payment.Secupayprepays"
+        ],
+        "operationId": "Payment/Secupayprepays/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts": {
+      "get": {
+        "description": "Payment/Contracts",
+        "summary": "Payment/Contracts",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Payment/Contracts",
+        "summary": "Payment/Contracts1",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/PCR_XXX": {
+      "get": {
+        "description": "Payment/Contracts/PCR_XXX",
+        "summary": "Payment/Contracts/PCR_XXX",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts/PCR_XXX",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "Payment/Contracts/PCR_XXX",
+        "summary": "Payment/Contracts/PCR_XXX",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts/PCR_XXX",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Payment/Contracts/PCR_XXX",
+        "summary": "Payment/Contracts/PCR_XXX",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts/PCR_XXX",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/me/clone": {
+      "post": {
+        "description": "Payment/Contracts clone",
+        "summary": "Payment/Contracts clone",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts clone",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/me/RequestId": {
+      "post": {
+        "description": "Payment/Contracts requestId",
+        "summary": "Payment/Contracts requestId",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts requestId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaydebits/xxxxc/cancel": {
+      "post": {
+        "description": "Payment/Secupaydebits/hash_id/cancel",
+        "summary": "Payment/Secupaydebits/hash_id/cancel",
+        "tags": [
+          "Payment.Secupaydebits"
+        ],
+        "operationId": "Payment/Secupaydebits/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaydebits/xxx": {
+      "get": {
+        "description": "Payment/Secupaydebits/xxx",
+        "summary": "Payment/Secupaydebits/xxx",
+        "tags": [
+          "Payment.Secupaydebits"
+        ],
+        "operationId": "Payment/Secupaydebits/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayprepays": {
+      "post": {
+        "description": "Create a new prepay transaction",
+        "summary": "Payment/Secupayprepays",
+        "tags": [
+          "Payment.Secupayprepays"
+        ],
+        "operationId": "Payment/Secupayprepays",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaycreditcards/xxxxc/cancel": {
+      "post": {
+        "description": "Payment/Secupaycreditcards/hash_id/cancel",
+        "summary": "Payment/Secupaycreditcards/hash_id/cancel",
+        "tags": [
+          "Payment.Secupaycreditcards"
+        ],
+        "operationId": "Payment/Secupaycreditcards/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaycreditcards": {
+      "post": {
+        "description": "Create a new creditcard transaction",
+        "summary": "Payment/Secupaycreditcards",
+        "tags": [
+          "Payment.Secupaycreditcards"
+        ],
+        "operationId": "Payment/Secupaycreditcards",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayinvoices": {
+      "post": {
+        "description": "Create a new invoice transaction",
+        "summary": "Payment/Secupayinvoices",
+        "tags": [
+          "Payment.Secupayinvoices"
+        ],
+        "operationId": "Payment/Secupayinvoices",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Container": {
+      "description": "TODO",
+      "type": "object",
+    },
+    "Oauth_200_OK": {
+      "description": "oauth 2.0 successful response",
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "description": "The acces token",
+          "example": "d1p7enuvrqc7hksgppfaherk51",
+          "type": "string"
+        },
+        "expires_in": {
+          "description": "Expire time in seconds",
+          "example": 1200,
+          "type": "integer",
+          "format": "int32"
+        },
+        "token_type": {
+          "description": "The type of the access token",
+          "example": "bearer",
+          "type": "string"
+        },
+        "scope": {
+          "description": "The scope name",
+          "example": "https://scope.secucard.com/e/api",
+          "type": "string"
+        }
+      }
+    },
+    "CustomerList": {
+      "description": "Reponse of get customer (list)",
+      "type": "object",
+      "properties": {
+        "count": {
+          "description": "The number of existing entries",
+          "example": 104,
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "description": "The list of entries",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Customer"
+          }
+        }
+      }
+    },
+    "Customer": {
+      "description": "The customer object",
+      "type": "object",
+      "properties": {
+        "object": {
+          "description": "The object type",
+          "example": "payment.customers",
+          "type": "string"
+        },
+        "id": {
+          "description": "The object id",
+          "example": "PCU_3KN6K4B0V2MF9N7U875XUQTTNM8UA6",
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "#/definitions/Contact"
+        },
+        "contract": {
+          "$ref": "#/definitions/Contract"
+        },
+        "created": {
+          "$ref": "#/definitions/Created"
+        },
+        "updated": {
+          "$ref": "#/definitions/Updated"
+        }
+      }
+    },
+    "Created": {
+      "description": "The date of creation",
+      "example": "2017-10-19T21:22:50+02:00",
+      "type": "string"
+    },
+    "Updated": {
+      "description": "The date of creation",
+      "example": "2017-11-16T13:46:28+02:00",
+      "type": "string"
+    },
+    "Contact": {
+      "description": "The contact object",
+      "type": "object",
+      "properties": {
+        "forename": {
+          "description": "The firstname",
+          "example": "John",
+          "type": "string"
+        },
+        "surname": {
+          "description": "The lastname",
+          "example": "Doe",
+          "type": "string"
+        },
+        "companyname": {
+          "description": "The name of the company",
+          "example": "Testfirma",
+          "type": "string"
+        },
+        "name": {
+          "description": "The forename + surname",
+          "example": "John Doe",
+          "type": "string"
+        },
+        "salutation": {
+          "description": "The salutation",
+          "example": "Mr.",
+          "type": "string"
+        },
+        "title": {
+          "description": "The name title",
+          "example": "Dr.",
+          "type": "string"
+        },
+        "email": {
+          "description": "The email address",
+          "example": "mail@example.com",
+          "type": "string"
+        },
+        "phone": {
+          "description": "The phone number",
+          "example": "0049-123456789",
+          "type": "string"
+        },
+        "birthplace": {
+          "description": "The Birthplace",
+          "example": "MyBirthplace",
+          "type": "string"
+        },
+        "nationality": {
+          "description": "The Nationality - ISO-Code (2-Char)",
+          "example": "DE",
+          "type": "string"
+        },
+        "dob": {
+          "description": "Date of birth",
+          "example": "1971-02-03",
+          "type": "string"
+        },
+        "mobile": {
+          "description": "The mobile number",
+          "example": "0049-123456789",
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        }
+      }
+    },
+    "Address": {
+      "description": "The address object",
+      "type": "object",
+      "properties": {
+        "street": {
+          "description": "The street (with or without street_number)",
+          "example": "Example Street",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "The postal code",
+          "example": "01234",
+          "type": "string"
+        },
+        "city": {
+          "description": "The city",
+          "example": "ExampleCity",
+          "type": "string"
+        },
+        "country": {
+          "description": "The country - ISO-Code (2-Char)",
+          "example": "DE",
+          "type": "string"
+        },
+        "street_number": {
+          "description": "The street number (as seperate field)",
+          "example": "6a",
+          "type": "string"
+        }
+      },
+      "required": [
+        "street",
+        "postal_code",
+        "city",
+        "country"
+      ]
+    },
+    "Contract": {
+      "description": "The contract object",
+      "type": "object",
+      "properties": {
+        "salutation": {
+          "description": "",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "type": "string"
+        },
+        "name": {
+          "description": "",
+          "type": "string"
+        },
+        "forename": {
+          "description": "",
+          "type": "string"
+        },
+        "surname": {
+          "description": "",
+          "type": "string"
+        },
+        "gender": {
+          "description": "",
+          "type": "string"
+        },
+        "nationality": {
+          "description": "ISO 3166 country code like DE",
+          "type": "string"
+        }
+      }
+    },
+    "GrantType": {
+      "description": "grant_type",
+      "example": "client_credentials",
+      "type": "string",
+      "enum": [
+        "client_credentials",
+        "appuser",
+        "refresh_token",
+        "device"
+      ]
+    },
+    "Oauth_400_Error": {
+      "description": "oauth 2.0 error response_Error",
+      "type": "object",
+      "properties": {
+        "error": {
+          "description": "The acces token",
+          "example": "invalid_client",
+          "type": "string"
+        },
+        "error_description": {
+          "description": "Expire time in seconds",
+          "example": "The client credentials are invalid",
+          "type": "string"
+        }
+      }
+    },
+    "404_Error": {
+      "description": "Not found",
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "Response-Status",
+          "example": "error",
+          "type": "string",
+          "default": "error"
+        },
+        "error": {
+          "description": "Exception name",
+          "example": "ProductNotFoundException",
+          "type": "string"
+        },
+        "error_details": {
+          "description": "Exception details",
+          "example": "Unknown id",
+          "type": "string"
+        },
+        "error_user": {
+          "description": "Exception details for the user",
+          "example": "Es ist ein unbekannter Fehler aufgetreten",
+          "type": "string"
+        },
+        "code": {
+          "description": "Exception name",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "supportId": {
+          "description": "Support-ID",
+          "example": "ae39890c91374e5422a16d11476ab96b",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
