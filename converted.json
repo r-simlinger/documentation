@@ -1,0 +1,2954 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "secuconnect API",
+    "description": "",
+    "license": {
+      "name": "MIT",
+      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+    }
+  },
+  "host": "connect-testing.secupay-ag.de",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/oauth/token": {
+      "post": {
+        "description": "oAuth token appuser",
+        "summary": "oAuth token appuser",
+        "tags": [
+          "Auth (oauth)"
+        ],
+        "operationId": "oAuth token appuser",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "grant_type",
+            "in": "formData",
+            "required": true,
+            "enum": [
+              "client_credentials",
+              "appuser",
+              "refresh_token",
+              "device"
+            ],
+            "type": "string",
+            "description": "The type of the credentials"
+          },
+          {
+            "name": "client_id",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "The Client-ID"
+          },
+          {
+            "name": "client_secret",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "The Client-Secret"
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The user name (required for grant_type \"appuser\")"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The user password (required for grant_type \"appuser\")"
+          },
+          {
+            "name": "device",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The device id (uuid) (required for grant_type \"device\")"
+          },
+          {
+            "name": "deviceinfo[name]",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "The device name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Oauth2.0SuccessfulResponse"
+            },
+            "examples": {}
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Oauth 2.0 error responseError"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Customers/{ID}": {
+      "get": {
+        "description": "Get the data of a specific customer",
+        "summary": "Payment/Customers/PCU_XXX",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers/PCU_XXX",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The ID of the customer (PCU_...)"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The access token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReponseOfGetCustomer(list)"
+            },
+            "examples": {}
+          },
+          "404": {
+            "description": "No data found",
+            "schema": {
+              "$ref": "#/definitions/Not found error responseError"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "put": {
+        "description": "Payment/Customers/pcu_xxxxx",
+        "summary": "Payment/Customers/pcu_xxxxx",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers/pcu_xxxxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TheCustomerObject"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/api/v2/Payment/Customers/{ID}",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contact\": {\n        \"salutation\": \"Mr.\",\n        \"title\": \"Dr.\",\n        \"forename\": \"John\",\n        \"surname\": \"Doe\",\n        \"companyname\": \"Example Inc.\",\n        \"dob\": \"1901-02-03\",\n        \"email\": \"example@example.com\",\n        \"phone\": \"0049-123-456789\",\n        \"mobile\": \"0049-987-654321\",\n        \"address\": {\n            \"street\": \"Example Street\",\n            \"street_number\": \"6a\",\n            \"postal_code\": \"01234\",\n            \"city\": \"Examplecity\",\n            \"country\": \"Germany\"\n        }\n    }\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Customers/pcu_xxxxx_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "Payment/Customers/pcu_xxxxx",
+        "summary": "Payment/Customers/pcu_xxxxx2",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers/pcu_xxxxx2",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/api/v2/Payment/Customers/{ID}",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Customers/pcu_xxxxx2_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaydebits": {
+      "post": {
+        "description": "Create a new debit transaction",
+        "summary": "Payment/Secupaydebits",
+        "tags": [
+          "Payment.Secupaydebits"
+        ],
+        "operationId": "Payment/Secupaydebits",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupaydebits",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"subscription\": {\n      \"id\": \"932\"\n    },\n    \"amount\": \"100\",\n    \"purpose\": \"for what text\",\n    \"contact\": {\"email\": \"test@example.com\"},\n    \"basket\": [\n        {\n            \"item_type\": \"article\",\n            \"name\": \"Super fancy product - 45,00 EUR\",\n            \"price\": 4500,\n            \"quantity\": 1,\n            \"tax\": 19,\n            \"total\": 4500\n        },\n        {\n            \"item_type\": \"shipping\",\n            \"name\": \"DHL Paket National - 4,90 EUR\",\n            \"price\": 490,\n            \"quantity\": 1,\n            \"tax\": 19,\n            \"total\": 490\n        },\n        {\n            \"apikey\": \"37373c132df0299c5bdcf7c7638dd47aa41a2fe2\",\n            \"item_type\": \"stakeholder_payment\",\n            \"name\": \"platform fee\",\n            \"price\": 249,\n            \"quantity\": 1,\n            \"total\": 249\n        }]\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupaydebits_1",
+            "x-testDescription": "Create a new debit transaction"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Containers/pct_xxxxx": {
+      "put": {
+        "description": "Payment/Containers/pct_xxxxx",
+        "summary": "Payment/Containers/pct_xxxxx1",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/pct_xxxxx1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/api/v2/Payment/Containers/pct_xxxxx",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"type\": \"bank_account\",\n    \"private\": {\n        \"owner\": \"John Doe\",\n        \"iban\": \"DE12123456781234567890\",\n        \"bic\": \"ABCDDE12XXX\"\n    }\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Containers/pct_xxxxx1_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "Payment/Containers/pct_xxxxx",
+        "summary": "Payment/Containers/pct_xxxxx",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/pct_xxxxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/api/v2/Payment/Containers/pct_xxxxx",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Containers/pct_xxxxx_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Customers": {
+      "get": {
+        "description": "Payment/Customers",
+        "summary": "Payment/Customers",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Customers",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Customers_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "Payment/Customers",
+        "summary": "Payment/Customers1",
+        "tags": [
+          "Payment.Customers"
+        ],
+        "operationId": "Payment/Customers1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Customers",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contact\": {\n        \"salutation\": \"Mr.\",\n        \"title\": \"Dr.\",\n        \"forename\": \"John\",\n        \"surname\": \"Doe\",\n        \"companyname\": \"Example Inc.\",\n        \"dob\": \"1901-02-03\",\n        \"email\": \"example@example.com\",\n        \"phone\": \"0049-123-456789\",\n        \"mobile\": \"0049-987-654321\",\n        \"address\": {\n            \"street\": \"Example Street\",\n            \"street_number\": \"6a\",\n            \"postal_code\": \"01234\",\n            \"city\": \"Examplecity\",\n            \"country\": \"Germany\"\n        }\n    }\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Customers1_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Containers/pct_xxxxx/assign/pcu_xxxxx": {
+      "post": {
+        "description": "Payment/Containers/pct_xxxxx assign ",
+        "summary": "Payment/Containers/pct_xxxxx assign ",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/pct_xxxxx assign ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Containers/pct_xxxxx/assign/pcu_xxxxx",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Containers/pct_xxxxx assign _1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaycreditcards/xxx": {
+      "get": {
+        "description": "Payment/Secupaycreditcards/xxx",
+        "summary": "Payment/Secupaycreditcards/xxx",
+        "tags": [
+          "Payment.Secupaycreditcards"
+        ],
+        "operationId": "Payment/Secupaycreditcards/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Secupaycreditcards/xxx",
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupaycreditcards/xxx_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Transactions": {
+      "get": {
+        "description": "Payment/Transactions",
+        "summary": "Payment/Transactions",
+        "tags": [
+          "Payment.Transactions"
+        ],
+        "operationId": "Payment/Transactions",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Transactions",
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Transactions_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayinvoices/xxx": {
+      "get": {
+        "description": "Payment/Secupayinvoices/xxx",
+        "summary": "Payment/Secupayinvoices/xxx",
+        "tags": [
+          "Payment.Secupayinvoices"
+        ],
+        "operationId": "Payment/Secupayinvoices/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Secupayinvoices/xxx",
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupayinvoices/xxx_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayprepays/xxxxx/cancel": {
+      "post": {
+        "description": "Payment/Secupayprepays/hash_id/cancel",
+        "summary": "Payment/Secupayprepays/hash_id/cancel",
+        "tags": [
+          "Payment.Secupayprepays"
+        ],
+        "operationId": "Payment/Secupayprepays/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupayprepays/xxxxx/cancel",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contract\": \"contract_id if transaction is for subcontract, empty if not!\"\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupayprepays/hash_id/cancel_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayinvoices/xxxxc/cancel": {
+      "post": {
+        "description": "Payment/Secupayinvoices/hash_id/cancel",
+        "summary": "Payment/Secupayinvoices/hash_id/cancel",
+        "tags": [
+          "Payment.Secupayinvoices"
+        ],
+        "operationId": "Payment/Secupayinvoices/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupayinvoices/xxxxc/cancel",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contract\": \"contract_id if transaction is for subcontract, empty if not!\"\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupayinvoices/hash_id/cancel_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayprepays/xxx": {
+      "get": {
+        "description": "Payment/Secupayprepays/xxx",
+        "summary": "Payment/Secupayprepays/xxx",
+        "tags": [
+          "Payment.Secupayprepays"
+        ],
+        "operationId": "Payment/Secupayprepays/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Secupayprepays/xxx",
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupayprepays/xxx_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/me/clone": {
+      "post": {
+        "description": "Payment/Contracts clone",
+        "summary": "Payment/Contracts clone",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts clone",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Contracts/me/clone",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contact\": {\n      \"id\": \"CNT_2PJXRWYRK2YATU9MB5GQGJPRR3Q3AJ\"\n    },\n    \"project\": \"project_name 2017-05-15 #2\",\n    \"payout_account\": {\n        \"iban\" : \"DE89370400440532013000\",\n        \"bic\" : \"\",\n        \"owner\": \"Test #1\"\n    },\n    \"iframe_opts\": {\n      \"show_basket\": true,\n      \"basket_title\": \"Projext XY unterstützen\",\n      \"submit_button_title\": \"Zahlungspflichtig unterstützen\"\n    },\n    \"payin_account\": false\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Accept": "application/json",
+                "Access-Control-Allow-Headers": "Content-Type, Accept, Authorization",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Max-Age": "600",
+                "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+                "Connection": "Keep-Alive",
+                "Content-Length": "165",
+                "Content-Type": "application/json",
+                "Date": "Mon, 24 Apr 2017 12:05:42 GMT",
+                "Expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+                "Keep-Alive": "timeout=15",
+                "Pragma": "no-cache",
+                "Server": "Apache/2.2.22 (Debian)"
+              },
+              "body": "{\"apikey\":\"7c0558743748e2872a30b8a839d15d7434d3fdf7\",\"contract_id\":\"PCR_27CQJ0AS22M7TT8BX75XUP50TY0UA2\",\"payin_account\":{\"accountowner\":\"null\",\"iban\":\"null\",\"bic\":\"null\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Contracts clone_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/pcr_xxxxx": {
+      "delete": {
+        "description": "Payment/Contracts/pcr_xxxxx",
+        "summary": "Payment/Contracts/pcr_xxxxx",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts/pcr_xxxxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/api/v2/Payment/Contracts/pcr_xxxxx",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Contracts/pcr_xxxxx_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaydebits/xxxxc/cancel": {
+      "post": {
+        "description": "Payment/Secupaydebits/hash_id/cancel",
+        "summary": "Payment/Secupaydebits/hash_id/cancel",
+        "tags": [
+          "Payment.Secupaydebits"
+        ],
+        "operationId": "Payment/Secupaydebits/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupaydebits/xxxxc/cancel",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contract\": \"contract_id if transaction is for subcontract, empty if not!\"\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupaydebits/hash_id/cancel_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaydebits/xxx": {
+      "get": {
+        "description": "Payment/Secupaydebits/xxx",
+        "summary": "Payment/Secupaydebits/xxx",
+        "tags": [
+          "Payment.Secupaydebits"
+        ],
+        "operationId": "Payment/Secupaydebits/xxx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Secupaydebits/xxx",
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupaydebits/xxx_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Containers/pct_xxxxx/assign": {
+      "delete": {
+        "description": "Payment/Containers/pct_xxxxx assign",
+        "summary": "Payment/Containers/pct_xxxxx assign",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers/pct_xxxxx assign",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/api/v2/Payment/Containers/pct_xxxxx/assign",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Containers/pct_xxxxx assign_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Containers": {
+      "get": {
+        "description": "Payment/Containers",
+        "summary": "Payment/Containers1",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Containers",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Containers1_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "Payment/Containers",
+        "summary": "Payment/Containers",
+        "tags": [
+          "Payment.Containers"
+        ],
+        "operationId": "Payment/Containers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Containers",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"type\": \"bank_account\",\n    \"private\": {\n        \"owner\": \"John Doe\",\n        \"iban\": \"DE12500105170648489890\",\n        \"bic\": \"ABCDDE12XXX\"\n    }\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Containers_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/me/RequestId": {
+      "post": {
+        "description": "Payment/Contracts requestId",
+        "summary": "Payment/Contracts requestId",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts requestId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Contracts/me/RequestId",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contact\": {\n      \"id\": \"CNT_2A3CJ9EEQ2MG9EFGX75XU95VEGGCA3\"\n    },\n    \"project\": \"project_name 2017-05-15 #123\",\n    \"payout_account\": {\n        \"iban\" : \"DE89370400440532013000\",\n        \"bic\" : \"\",\n        \"owner\": \"Test #1\"\n    },\n    \"iframe_opts\": {\n      \"show_basket\": true,\n      \"basket_title\": \"Projext XY unterstützen\",\n      \"submit_button_title\": \"Zahlungspflichtig unterstützen\"\n    },\n    \"payin_account\": false\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Contracts requestId_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayprepays": {
+      "post": {
+        "description": "Create a new prepay transaction",
+        "summary": "Payment/Secupayprepays",
+        "tags": [
+          "Payment.Secupayprepays"
+        ],
+        "operationId": "Payment/Secupayprepays",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupayprepays",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"customer\": \"PCU_WWNA76JGY2MB3BKAX75XU7DTHFWJA9\",\n    \"amount\": \"100\",\n    \"currency\": \"EUR\",\n    \"purpose\": \"for what text\",\n    \"order_id\": \"ZZZZZZ\",\n    \"redirect_url\": {\n      \"url_success\": \"http://shop.example.com?success=true\",\n      \"url_failure\": \"http://shop.example.com?success=false\",\n      \"url_push\": \"https://requestb.in/14f6a1j1\"\n    }\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupayprepays_1",
+            "x-testDescription": "Create a new prepay transaction"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaycreditcards/xxxxc/cancel": {
+      "post": {
+        "description": "Payment/Secupaycreditcards/hash_id/cancel",
+        "summary": "Payment/Secupaycreditcards/hash_id/cancel",
+        "tags": [
+          "Payment.Secupaycreditcards"
+        ],
+        "operationId": "Payment/Secupaycreditcards/hash_id/cancel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupaycreditcards/xxxxc/cancel",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"contract\": \"contract_id if transaction is for subcontract, empty if not!\"\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupaycreditcards/hash_id/cancel_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupaycreditcards": {
+      "post": {
+        "description": "Create a new creditcard transaction",
+        "summary": "Payment/Secupaycreditcards",
+        "tags": [
+          "Payment.Secupaycreditcards"
+        ],
+        "operationId": "Payment/Secupaycreditcards",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupaycreditcards",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"customer\": \"PCU_WWNA76JGY2MB3BKAX75XU7DTHFWJA9\",\n    \"amount\": \"100\",\n    \"currency\": \"EUR\",\n    \"order_id\": \"ZZZZZZ\",\n    \"accrual\" : true\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupaycreditcards_1",
+            "x-testDescription": "Create a new creditcard transaction"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9": {
+      "get": {
+        "description": "Payment/Contracts/pcr_xxxxx",
+        "summary": "Payment/Contracts/pcr_xxxxx1",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts/pcr_xxxxx1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Contracts/PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Contracts/pcr_xxxxx1_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Secupayinvoices": {
+      "post": {
+        "description": "Create a new invoice transaction",
+        "summary": "Payment/Secupayinvoices",
+        "tags": [
+          "Payment.Secupayinvoices"
+        ],
+        "operationId": "Payment/Secupayinvoices",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Secupayinvoices",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"customer\": \"PCU_2WBK46JNR2M54WHP875XUP0CQGBJAK\",\n    \"amount\": \"100\",\n    \"currency\": \"EUR\",\n    \"purpose\": \"for what text\",\n    \"order_id\": \"ZZZZZZ\"\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Secupayinvoices_1",
+            "x-testDescription": "Create a new invoice transaction"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts": {
+      "get": {
+        "description": "Payment/Contracts",
+        "summary": "Payment/Contracts",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/v2/Payment/Contracts?q=id:PCR_3MUDP20MP2M3M2HWX75XUQYPFK2JA9",
+              "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Contracts_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "Payment/Contracts",
+        "summary": "Payment/Contracts1",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/api/v2/Payment/Contracts",
+              "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Authorization": "Bearer {{access_token}}"
+              },
+              "body": "{\n    \"merchant\": \"MRC_WVHJQFQ4JNVYNG5B55TYK748ZCHQP8\",\n    \"internal_reference\": \"181365\",\n    \"contract_id\": 49760,\n    \"demo\": true,\n    \"debit_product_id\": 20,\n    \"prepay_product_id\": 37,\n    \"invoice_product_id\": 329,\n    \"creditcard_product_id\": 21,\n    \"url_push\": \"http://requestb.in/xcrbzxxc\",\n    \"allow_transactions\": true,\n    \"allow_cloning\": true,\n    \"unique_order_id\": false,\n    \"scoring\": true,\n    \"sepa_mandate_inform\": \"never\"\n}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Payment/Contracts1_1",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/v2/Payment/Contracts/PCR_2C0S37QHH2MASN9V875XU3YFNM8UA6": {
+      "put": {
+        "description": "Payment/Contracts/pcr_xxxxx",
+        "summary": "Payment/Contracts/pcr_xxxxx2",
+        "tags": [
+          "Payment.Contracts"
+        ],
+        "operationId": "Payment/Contracts/pcr_xxxxx2",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Accept-Charset",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Oauth2.0SuccessfulResponse": {
+      "title": "oauth 2.0 successful response",
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "description": "The acces token",
+          "example": "d1p7enuvrqc7hksgppfaherk51",
+          "type": "string"
+        },
+        "expires_in": {
+          "description": "Expire time in seconds",
+          "example": 1200,
+          "type": "integer",
+          "format": "int32"
+        },
+        "token_type": {
+          "description": "The type of the access token",
+          "example": "bearer",
+          "type": "string"
+        },
+        "scope": {
+          "description": "The scope name",
+          "example": "https://scope.secucard.com/e/api",
+          "type": "string"
+        }
+      }
+    },
+    "ReponseOfGetCustomer(list)": {
+      "title": "Reponse of get customer (list)",
+      "type": "object",
+      "properties": {
+        "count": {
+          "description": "The number of existing entries",
+          "example": 104,
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "description": "The list of entries",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TheCustomerObject"
+          }
+        }
+      }
+    },
+    "TheCustomerObject": {
+      "title": "The customer object",
+      "example": {
+        "contact": {
+          "salutation": "Mr.",
+          "title": "Dr.",
+          "forename": "John",
+          "surname": "Doe",
+          "companyname": "Example Inc.",
+          "dob": "1901-02-03",
+          "email": "example@example.com",
+          "phone": "0049-123-456789",
+          "mobile": "0049-987-654321",
+          "address": {
+            "street": "Example Street",
+            "street_number": "6a",
+            "postal_code": "01234",
+            "city": "Examplecity",
+            "country": "Germany"
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "object": {
+          "description": "TODO",
+          "example": "payment.customers",
+          "type": "string"
+        },
+        "id": {
+          "description": "TODO",
+          "example": "PCU_3KN6K4B0V2MF9N7U875XUQTTNM8UA6",
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "#/definitions/TheContactObject"
+        },
+        "contract": {
+          "description": "",
+          "type": "object"
+        },
+        "created": {
+          "description": "TODO",
+          "example": "10/19/2017 7:22:50 PM",
+          "type": "string"
+        },
+        "updated": {
+          "description": "TODO",
+          "example": "10/19/2017 8:11:00 PM",
+          "type": "string"
+        }
+      }
+    },
+    "TheContactObject": {
+      "title": "The contact object",
+      "type": "object",
+      "properties": {
+        "forename": {
+          "description": "The firstname",
+          "example": "John",
+          "type": "string"
+        },
+        "surname": {
+          "description": "The lastname",
+          "example": "Doe",
+          "type": "string"
+        },
+        "companyname": {
+          "description": "The name of the company",
+          "example": "Testfirma",
+          "type": "string"
+        },
+        "name": {
+          "description": "The forename + surname",
+          "example": "John Doe",
+          "type": "string"
+        },
+        "salutation": {
+          "description": "The salutation",
+          "example": "Mr.",
+          "type": "string"
+        },
+        "title": {
+          "description": "The name title",
+          "example": "Dr.",
+          "type": "string"
+        },
+        "email": {
+          "description": "The email address",
+          "example": "mail@example.com",
+          "type": "string"
+        },
+        "phone": {
+          "description": "The phone number",
+          "example": "0049-123456789",
+          "type": "string"
+        },
+        "birthplace": {
+          "description": "Birthplace",
+          "example": "MyBirthplace",
+          "type": "string"
+        },
+        "nationality": {
+          "description": "Nationality - ISO-Code (2-Char)",
+          "example": "DE",
+          "type": "string"
+        },
+        "dob": {
+          "description": "Date of birth",
+          "example": "1971-02-03",
+          "type": "string"
+        },
+        "mobile": {
+          "description": "The mobile number",
+          "example": "0049-123456789",
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/definitions/TheAddressObject"
+        }
+      }
+    },
+    "TheAddressObject": {
+      "title": "The address object",
+      "type": "object",
+      "properties": {
+        "street": {
+          "description": "The street (with or without street_number)",
+          "example": "Example Street",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "The postal code",
+          "example": "01234",
+          "type": "string"
+        },
+        "city": {
+          "description": "The city",
+          "example": "ExampleCity",
+          "type": "string"
+        },
+        "country": {
+          "description": "The country - ISO-Code (2-Char)",
+          "example": "DE",
+          "type": "string"
+        },
+        "street_number": {
+          "description": "The street number (as seperate field)",
+          "example": "6a",
+          "type": "string"
+        }
+      },
+      "required": [
+        "street",
+        "postal_code",
+        "city",
+        "country"
+      ]
+    },
+    "GrantType": {
+      "title": "grant_type",
+      "example": "client_credentials",
+      "type": "string",
+      "enum": [
+        "client_credentials",
+        "appuser",
+        "refresh_token",
+        "device"
+      ]
+    },
+    "Oauth 2.0 error responseError": {
+      "title": "oauth 2.0 error response_Error",
+      "type": "object",
+      "properties": {
+        "error": {
+          "description": "The acces token",
+          "example": "invalid_client",
+          "type": "string"
+        },
+        "error_description": {
+          "description": "Expire time in seconds",
+          "example": "The client credentials are invalid",
+          "type": "string"
+        }
+      }
+    },
+    "Not found error responseError": {
+      "title": "Not found error response_Error",
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "Response-Status",
+          "example": "error",
+          "type": "string",
+          "default": "error"
+        },
+        "error": {
+          "description": "Exception name",
+          "example": "ProductNotFoundException",
+          "type": "string"
+        },
+        "error_details": {
+          "description": "Exception details",
+          "example": "Unknown id",
+          "type": "string"
+        },
+        "error_user": {
+          "description": "Exception details for the user",
+          "example": "Es ist ein unbekannter Fehler aufgetreten",
+          "type": "string"
+        },
+        "code": {
+          "description": "Exception name",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "supportId": {
+          "description": "Support-ID",
+          "example": "ae39890c91374e5422a16d11476ab96b",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
